@@ -16,7 +16,7 @@ WY.CookieLayer = {
 
     /**
      * CookieSettings which are set dynamically from the template
-     * via data (WY.SafeCookieLayer.settings.cookieSettingsDataAttribute)
+     * via data (WY.CookieHandling.settings.cookieSettingsDataAttribute)
      */
     cookieSettings: {},
 

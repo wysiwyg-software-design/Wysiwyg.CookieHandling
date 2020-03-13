@@ -9,16 +9,13 @@ WY.CookieHandling = {
      * Settings for this component which can be overwritten for own use.
      *
      * Example: Override cookieLayerSelector
-     *  WY.SafeCookieHandling.settings.cookieLayerSelector = '#otherCookieLayerSelector'
+     *  WY.CookieHandling.settings.cookieLayerSelector = '#otherCookieLayerSelector'
      */
     settings: {
         cookieLayerSelector: '#cookieLayer',
         cookieSuffix: '_cookies',
-        consentCookieLifeTime: '',
         consentCookieName: 'cookieConsent',
         cookieConsentChangedEventName: 'cookieConsentChanged',
-        cookieConsentAcceptedLifetime: '',
-        cookieConsentVersion: '',
     },
 
     /**
@@ -225,21 +222,6 @@ WY.CookieHandling = {
     },
 
     /**
-     *
-     * @deprecated
-     * @param cookieName
-     * @param cookieGroupName
-     * @param cookieValue
-     * @param path
-     * @param expireDays
-     */
-    createSafeCookie: function (cookieName, cookieGroupName, cookieValue, path, expireDays) {
-        if (this.cookieIsAccepted(cookieName)) {
-            this._setCookie(cookieName, cookieValue, expireDays);
-        }
-    },
-
-    /**
      * This functions should be used, to set a cookie.
      * It will check if a cookie has been accepted.
      * The cookie will be added, when there is a consent regarding this cookie.
@@ -344,7 +326,7 @@ WY.CookieHandling = {
         var newCookieValue = JSON.stringify(this.consentCookie);
 
         this._setCookie(this.settings.consentCookieName, newCookieValue, this.getExpireDaysForTimeString(this.settings.consentCookieLifeTime));
-        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.cookieConsentAcceptedLifetime));
+        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.consentCookieAcceptedLifetime));
 
         if (previousCookieValue !== newCookieValue) {
             var event;
