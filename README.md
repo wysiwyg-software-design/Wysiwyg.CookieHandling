@@ -8,7 +8,7 @@ This package provides simple and fast to use functions and a cookie layer.
 
 ## Documentation
 
-[Documentation](https://wysiwyg-software-design.github.io/cookie-handling/)
+[Documentation](https://wysiwyg-software-design.github.io/Wysiwyg.CookieHandling)
 
 ## Installation
  
