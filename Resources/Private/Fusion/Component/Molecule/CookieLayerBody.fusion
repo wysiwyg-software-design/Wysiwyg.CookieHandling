@@ -1,0 +1,33 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerBody) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+        - privacyAnchor
+        - legalNotesAnchor
+        - cookieLayerDisabled
+        - consentCookieName
+        - cookieBoxes
+    */
+
+    privacyAnchor = ''
+    legalNotesAnchor = ''
+    cookieLayerDisabled = ''
+    consentCookieName = ''
+    consentCookieLifetime = ''
+    consentCookieAcceptedName = ''
+    consentCookieAcceptedLifetime = ''
+    cookieBoxes = ''
+
+    renderer = Wysiwyg.CookieHandling:Component.Molecule.ModalBody {
+        content = Wysiwyg.CookieHandling:Component.Molecule.CookieForm {
+            privacyAnchor = ${props.privacyAnchor}
+            legalNotesAnchor = ${props.legalNotesAnchor}
+            introText = ${props.introText}
+            cookieLayerDisabled = ${props.cookieLayerDisabled}
+            consentCookieName = ${props.consentCookieName}
+            consentCookieLifetime = ${props.consentCookieLifetime}
+            consentCookieAcceptedName = ${props.consentCookieAcceptedName}
+            consentCookieAcceptedLifetime = ${props.consentCookieAcceptedLifetime}
+            cookieBoxes = ${props.cookieBoxes}
+        }
+    }
+}

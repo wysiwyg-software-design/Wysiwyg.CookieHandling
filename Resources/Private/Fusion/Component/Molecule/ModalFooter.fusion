@@ -1,0 +1,13 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.ModalFooter) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - content
+     */
+    content = ''
+
+    renderer = afx`
+        <div class="modal-footer text-right">
+            {props.content}
+        </div>
+    `
+}

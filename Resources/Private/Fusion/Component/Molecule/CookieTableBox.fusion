@@ -1,0 +1,14 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieTableBox) < prototype(Neos.Fusion:Component) {
+
+    /**
+    * PROPS:
+    *   - cookieTable
+    */
+    cookieTable = ''
+
+    renderer = afx`
+    <div class="table-box">
+        {props.cookieTable}
+    </div>
+    `
+}

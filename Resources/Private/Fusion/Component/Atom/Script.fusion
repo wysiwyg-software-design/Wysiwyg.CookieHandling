@@ -1,0 +1,13 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.Script) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - content
+     */
+    content = ''
+
+    renderer = afx`
+        <script>
+            {props.content}
+        </script>
+    `
+}

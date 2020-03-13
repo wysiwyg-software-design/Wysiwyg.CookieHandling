@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+    <file original="" source-language="en" target-language="en" datatype="plaintext">
+        <body>
+            <trans-unit id="modalTitle" xml:space="preserve">
+                <source>Cookie Settings</source>
+                <target>Cookie Settings</target>
+            </trans-unit>
+            <trans-unit id="modalIntroText" xml:space="preserve">
+                <source>Privacy Statement</source>
+                <target>Privacy Statement</target>
+            </trans-unit>
+            <trans-unit id="cookieConsentText" xml:space="preserve">
+                <source>
+                    We use cookies in order to provide the best possible website experience for you. This includes
+                    cookies that are technically required to ensure a proper functioning of the website, as well as
+                    cookies which are used solely for anonymous statistical purposes, for more comfortable website
+                    settings, or for displaying personalized content. You are free to choose the categories you would
+                    like to permit. Please note that depending on your settings, the full functionality of the website
+                    may no longer be available. Further information can be found in our {privacyStatementAnchor}.
+                </source>
+                <target>
+                    We use cookies in order to provide the best possible website experience for you. This includes
+                    cookies that are technically required to ensure a proper functioning of the website, as well as
+                    cookies which are used solely for anonymous statistical purposes, for more comfortable website
+                    settings, or for displaying personalized content. You are free to choose the categories you would
+                    like to permit. Please note that depending on your settings, the full functionality of the website
+                    may no longer be available. Further information can be found in our {privacyStatementAnchor}.
+                </target>
+            </trans-unit>
+            <trans-unit id="privacyLinkText" xml:space="preserve">
+                <source>Privacy Statement</source>
+                <target>Privacy Statement</target>
+            </trans-unit>
+            <trans-unit id="legalNotesLinkText" xml:space="preserve">
+                <source>Legal Notes</source>
+                <target>Legal Notes</target>
+            </trans-unit>
+            <trans-unit id="confirmSelectionButtonText" xml:space="preserve">
+                <source>Confirm selection</source>
+                <target>Confirm selection</target>
+            </trans-unit>
+            <trans-unit id="selectAllButtonText" xml:space="preserve">
+                <source>Accept all</source>
+                <target>Accept all</target>
+            </trans-unit>
+            <!-- Cookie Table -->
+            <trans-unit id="labelToggleShow">
+                <source>Show Cookie Information</source>
+                <target>Show Cookie Information</target>
+            </trans-unit>
+            <trans-unit id="labelToggleHide">
+                <source>Hide Cookie Information</source>
+                <target>Hide Cookie Information</target>
+            </trans-unit>
+            <trans-unit id="labelColumnCookie">
+                <source>Cookie</source>
+                <target>Cookie</target>
+            </trans-unit>
+            <trans-unit id="labelColumnDescription">
+                <source>Description</source>
+                <target>Description</target>
+            </trans-unit>
+            <trans-unit id="labelColumnLifetime">
+                <source>Lifetime</source>
+                <target>Lifetime</target>
+            </trans-unit>
+            <trans-unit id="labelColumnActive">
+                <source>Active</source>
+                <target>Active</target>
+            </trans-unit>
+            <!-- Cookie Group by Key -->
+            <trans-unit id="Technical">
+                <source>Required Cookies</source>
+                <target>Required Cookies</target>
+            </trans-unit>
+            <!-- Cookie Description by Key -->
+            <trans-unit id="neos_session">
+                <source>Neos Session Cookie</source>
+                <target>Neos Session Cookie</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

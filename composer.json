@@ -1,0 +1,20 @@
+{
+    "description": "Cookie handling in neos with user consent",
+    "name": "wysiwyg/cookie-handling",
+    "type": "neos-plugin",
+    "require": {
+        "neos/flow": "*",
+        "neos/neos": "*",
+        "neos/fusion-afx": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Wysiwyg\\CookieHandling\\": "Classes/"
+        }
+    },
+    "extra": {
+        "neos": {
+            "package-key": "Wysiwyg.CookieHandling"
+        }
+    }
+}

@@ -1,0 +1,24 @@
+prototype(Wysiwyg.CookieHandling:Component.Organism.Modal) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - id
+           - header
+           - body
+     */
+
+    id = ''
+    header = ''
+    body = ''
+    footer = ''
+
+    renderer =  afx`
+        <div class="modal" id={props.id}>
+            <div class="modal-dialog modal-xl modal-dialog-centered">
+                <div class="modal-content">
+                    {props.header}
+                    {props.body}
+                    {props.footer}
+                </div>
+            </div>
+        </div>`
+}

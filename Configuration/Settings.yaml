@@ -1,0 +1,55 @@
+Wysiwyg:
+  CookieHandling:
+    cleanUp:
+      dryrun: true
+    showCookieDetails: true
+    consentCookieName: 'cookieConsent'
+    cookieGroups:
+      technical:
+        readOnly: true
+        defaultValue: true
+        cookies:
+          cookie_consent:
+            cookieName: 'cookieConsent'
+            lifetime: '3 months'
+          cookie_accepted:
+            cookieName: 'cookieConsentAccepted'
+            lifetime: '3 months'
+
+
+Neos:
+  Neos:
+    fusion:
+      autoInclude:
+        Wysiwyg.CookieHandling: true
+
+    modules:
+      management:
+        submodules:
+          cookieLogModule:
+            controller: \Wysiwyg\CookieHandling\Controller\CookieLogModuleController
+            label: 'Cookie Log'
+            icon: 'fas fa-cookie-bite'
+
+  Flow:
+    http:
+      chain:
+        preprocess:
+          chain:
+            cookieConsent:
+              position: 'start'
+              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentComponent
+
+        postprocess:
+          chain:
+            cleanupCookies:
+              position: 'end'
+              component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
+
+            cookieConsentHandler:
+              position: 'after cleanupCookies'
+              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
+
+  Fusion:
+    defaultContext:
+      CookieHandling: Wysiwyg\CookieHandling\Eel\Helper\CookieConsentHelper

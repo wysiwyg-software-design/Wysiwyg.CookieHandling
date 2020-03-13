@@ -1,0 +1,44 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieTable) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+        - cookieRows
+        - groupKey
+
+     */
+
+    cookieRows = ''
+    groupKey = ''
+
+    labelToggleShow = 'Show Cookie-Information'
+    labelToggleHide = 'Hide Cookie-Information'
+
+    labelColumnCookie = 'Cookie'
+    labelColumnDescription = 'Description'
+    labelColumnLifetime = 'Lifetime'
+    labelColumnActive = 'Active'
+
+    renderer = afx`
+    <div class="cookie--details-toggle text-center">
+        <a class="detail-anchor-show " data-control={props.groupKey} href={'#' + props.groupKey}>{props.labelToggleShow}</a>
+        <a class="detail-anchor-hide" hidden data-control={props.groupKey} href={'#' + props.groupKey}>{props.labelToggleHide}</a>
+    </div>
+    <div class="collapse" id={props.groupKey}>
+        <div class="cookie--details">
+            <div class="table-box">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{props.labelColumnCookie}</th>
+                            <th>{props.labelColumnDescription}</th>
+                            <th>{props.labelColumnLifetime}</th>
+                            <th>{props.labelColumnActive}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {props.cookieRows}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>`
+}

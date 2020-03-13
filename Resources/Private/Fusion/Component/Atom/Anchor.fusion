@@ -1,0 +1,16 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.Anchor) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - id
+           - class
+           - text
+     */
+    id = ''
+    class = ''
+    uri = ''
+    text = ''
+
+    renderer = afx`
+        <a id={props.id} class={props.class} href={props.uri}>{props.text}</a>
+    `
+}

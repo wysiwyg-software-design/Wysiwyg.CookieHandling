@@ -1,0 +1,20 @@
+'Wysiwyg.CookieHandling:Mixins.CookieSettings':
+  abtract: true
+  ui:
+    inspector:
+      groups:
+        cookieSettings:
+          label: 'Cookie Settings'
+  properties:
+    cookieLayerDisabled:
+      type: boolean
+      defaultValue: false
+      ui:
+        label: 'Do not show Cookie-Layer on this page'
+        inspector:
+          group: 'cookieSettings'
+
+# Fallback for old usages to prevent errors
+'Wysiwyg.SafeCookies:Mixins.CookieSettings':
+  superTypes:
+    'Wysiwyg.CookieHandling:Mixins.CookieSettings': true

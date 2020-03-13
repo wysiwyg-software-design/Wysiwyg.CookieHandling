@@ -1,0 +1,13 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.CookieSetting) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - content
+     */
+    key = ''
+    value = ''
+
+    renderer = afx`
+        document.cookieHandling.{props.key} = '{props.value}';
+    `
+
+}

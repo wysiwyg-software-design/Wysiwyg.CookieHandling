@@ -1,0 +1,16 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.PanelHeader) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - title
+           - cookieDetailBox
+     */
+    title = ''
+    headline = ''
+
+    renderer = afx`
+        <div class="panel-heading" role="tab" id="cookieLayerPanel">
+            <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseCookieLayer" aria-expanded="false" aria-controls="collapseCookieLayer">
+                More information about our cookies
+            </a>
+        </div>`
+}

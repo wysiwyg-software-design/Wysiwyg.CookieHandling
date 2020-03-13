@@ -1,0 +1,53 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieBoxes) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+         - showCookieDetails
+         - translationPackage
+         - translationLocale
+    */
+    showCookieDetails = ${Configuration.setting('Wysiwyg.CookieHandling.showCookieDetails')}
+    translationPackage = 'Wysiwyg.CookieHandling'
+    translationLocale = null
+
+    renderer = Neos.Fusion:Collection {
+        collection = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups')}
+        itemName = 'group'
+        itemKey = 'groupKey'
+
+        itemRenderer = Wysiwyg.CookieHandling:Component.Molecule.CookieGroup {
+            cookieGroupDescription = ${I18n.translate(groupKey, null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+            groupKey = ${groupKey}
+
+            cookieGroupCheckbox = Wysiwyg.CookieHandling:Component.Atom.GroupCookieCheckbox {
+                groupKey = ${groupKey}
+                label = ${I18n.translate(group.label, group.label, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                checked = ${group.defaultValue}
+                disabled = ${group.readOnly}
+            }
+
+            cookiesOfGroup = Wysiwyg.CookieHandling:Component.Molecule.CookieTable {
+                groupKey = ${groupKey}
+
+                labelToggleShow = ${I18n.translate('labelToggleShow', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                labelToggleHide = ${I18n.translate('labelToggleHide', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+
+                labelColumnCookie = ${I18n.translate('labelColumnCookie', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                labelColumnDescription = ${I18n.translate('labelColumnDescription', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                labelColumnLifetime = ${I18n.translate('labelColumnLifetime', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                labelColumnActive = ${I18n.translate('labelColumnActive', null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+
+                cookieRows = Neos.Fusion:Collection {
+                    itemName = 'cookie'
+                    itemRenderer = Wysiwyg.CookieHandling:Component.Molecule.CookieTableRow {
+                        cookie = ${cookie}
+                        group = ${group}
+                        groupKey = ${groupKey}
+                        cookieDescription = ${I18n.translate(itemKey, null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
+                    }
+                    collection = ${group.cookies}
+                }
+            }
+            cookiesOfGroup.@if.display = ${props.showCookieDetails}
+        }
+    }
+}

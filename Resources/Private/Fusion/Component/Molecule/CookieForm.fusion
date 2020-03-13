@@ -1,0 +1,36 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieForm) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - introText
+           - privacyStatementPageUri
+           - cookieBoxes
+     */
+    introText = ''
+    privacyStatementPageUri = ''
+    cookieBoxes = ''
+
+    class = 'section'
+    id = 'cookieLayer'
+    config = Wysiwyg.CookieHandling:Config
+
+    renderer = afx`
+        <div class={props.class}
+             id={props.id}
+        >
+            {props.config}
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <form id="cookieForm">
+                            <p>
+                                {props.introText}
+                            </p>
+                            <div class="cookie--groups">
+                                {props.cookieBoxes}
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>`
+}

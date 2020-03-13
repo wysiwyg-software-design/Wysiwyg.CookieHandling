@@ -1,0 +1,17 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.GroupCookieCheckbox) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+     */
+
+    group = ''
+    label = ''
+    checked = false
+    disabled = false
+
+
+    renderer = afx`
+    <label class="h4">
+        <input type="checkbox" class="group-check" data-group={props.groupKey} value={props.defaultValue} checked={props.checked} disabled={props.disabled}/>
+        {props.label}
+    </label>`
+}

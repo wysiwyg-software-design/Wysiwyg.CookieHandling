@@ -1,0 +1,13 @@
+prototype(Wysiwyg.SafeCookies:Component.Molecule.CookieLayerGroupBox) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+        - cookieGroups
+     */
+
+    cookieGroups = ''
+
+    renderer = afx`
+        <div class="col-sm-12">
+            {props.cookieGroups}
+        </div>`
+}

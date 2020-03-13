@@ -1,0 +1,19 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.ChildCookieCheckbox) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - groupKey
+           - cookieName
+           - defaultValue
+           - checked
+           - disabled
+     */
+    groupKey = ''
+    cookieName = ''
+    defaultValue = '1'
+    checked = false
+    disabled = false
+
+    renderer = afx`
+        <input type="checkbox" class="single-check" data-cookie-name={props.cookieName} data-group={props.groupKey} value={props.defaultValue} checked={props.checked} disabled={props.disabled}/>
+    `
+}

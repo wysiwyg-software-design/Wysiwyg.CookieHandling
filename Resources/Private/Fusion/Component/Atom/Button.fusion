@@ -1,0 +1,15 @@
+prototype(Wysiwyg.CookieHandling:Component.Atom.Button) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - id
+           - class
+           - text
+     */
+    id = ''
+    class = ''
+    text = ''
+
+    renderer = afx`
+        <button id={props.id} class={props.class}>{props.text}</button>
+    `
+}

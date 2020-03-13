@@ -1,0 +1,20 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieGroup) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+         - cookieGroupCheckbox
+         - cookieGroupDescription
+         - cookiesOfGroup
+    */
+    cookieGroupCheckbox = ''
+    cookieGroupDescription = ''
+    cookiesOfGroup = ''
+
+    renderer = afx`
+    <div class="cookie--group">
+        <div class="cookie--desc">
+            {props.cookieGroupCheckbox}
+            <div>{props.cookieGroupDescription}</div>
+        </div>
+        {props.cookiesOfGroup}
+    </div>`
+}

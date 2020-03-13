@@ -1,0 +1,16 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.Panel) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - title
+           - cookieDetailBox
+     */
+    title = ''
+    header = ''
+    body = ''
+
+    renderer = afx`
+         <div class="panel">
+            {props.header}
+            {props.body}
+        </div>`
+}

@@ -1,0 +1,52 @@
+prototype(Wysiwyg.CookieHandling:Config) < prototype(Neos.Fusion:Component) {
+
+    cookieGroups = ${Json.stringify(Configuration.setting('Wysiwyg.CookieHandling.cookieGroups'))}
+    cookieLayerDisabled = 'false'
+
+    consentCookieName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.cookieName')}
+    consentCookieLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.lifetime')}
+    consentCookieAcceptedName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.cookieName')}
+    consentCookieAcceptedLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.lifetime')}
+    consentCookieVersion = ${String.md5(this.cookieGroups)}
+
+    renderer = Wysiwyg.CookieHandling:Component.Atom.Script {
+        content = Neos.Fusion:Array {
+            cookieHandling = 'document.cookieHandling = {};'
+
+            consentCookieVersion = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieVersion'
+                value = ${props.consentCookieVersion}
+            }
+
+            cookieGroups = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'cookieSettings'
+                value = ${props.cookieGroups}
+            }
+
+            consentCookieName = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieName'
+                value = ${props.consentCookieName}
+            }
+
+            consentCookieLifetime = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieLifeTime'
+                value = ${props.consentCookieLifetime}
+            }
+
+            cookieLayerDisabled = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'cookieLayerDisabled'
+                value = ${props.cookieLayerDisabled}
+            }
+
+            consentCookieAcceptedName = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieAcceptedName'
+                value = ${props.consentCookieAcceptedName}
+            }
+
+            consentCookieAcceptedLifetime = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieAcceptedLifetime'
+                value = ${props.consentCookieAcceptedLifetime}
+            }
+        }
+    }
+}

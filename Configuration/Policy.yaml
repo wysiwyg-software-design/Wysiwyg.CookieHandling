@@ -1,0 +1,15 @@
+privilegeTargets:
+  Neos\Flow\Security\Authorization\Privilege\Method\MethodPrivilege:
+    'Wysiwyg.CookieHandling:CookieLogModuleController':
+      matcher: 'method(Wysiwyg\CookieHandling\Controller\CookieLogModuleController->.*Action())'
+
+roles:
+  'Neos.Neos:Editor':
+    privileges:
+      - privilegeTarget: 'Wysiwyg.CookieHandling:CookieLogModuleController'
+        permission: GRANT
+
+  'Neos.Neos:Administrator':
+    privileges:
+      - privilegeTarget: 'Wysiwyg.CookieHandling:CookieLogModuleController'
+        permission: GRANT

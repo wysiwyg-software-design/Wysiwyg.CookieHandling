@@ -1,0 +1,51 @@
+{namespace neos=Neos\Neos\ViewHelpers}
+{namespace cookies=Wysiwyg\CookieHandling\ViewHelpers}
+
+<f:layout name="BackendSubModule"/>
+
+<f:section name="subtitle">
+    <legend>Logged Cookies</legend>
+    <p>
+        This list may help you to identify if cookies haven't been added to your cookie settings and may need to be added.
+    </p>
+    <br>
+</f:section>
+
+<f:section name="content">
+    <div class="neos-row-fluid">
+        <table class="neos-table">
+            <thead>
+            <tr>
+                <th>CookieName</th>
+                <th>Domain</th>
+                <th>Counter</th>
+            </tr>
+            </thead>
+            <f:for each="{loggedCookies}" as="loggedCookie">
+                <tr>
+                    <td class="">
+                        {loggedCookie.cookieName}
+                    </td>
+                    <td class="">
+                        {loggedCookie.domain}
+                    </td>
+                    <td class="">
+                        {loggedCookie.counter}
+                    </td>
+                    <td class="">
+                        <f:if condition="{cookies:isInConfiguration(cookieName: loggedCookie.cookieName)}">
+                            <f:then>
+                                <span class="neos-badge neos-badge-success">Configured</span>
+                            </f:then>
+                            <f:else>
+                                <span class="neos-badge neos-badge-warning">UNKNOWN</span>
+                            </f:else>
+                        </f:if>
+                    </td>
+                </tr>
+            </f:for>
+        </table>
+    </div>
+    <div class="neos-footer">
+    </div>
+</f:section>

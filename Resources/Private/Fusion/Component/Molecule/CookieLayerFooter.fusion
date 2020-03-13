@@ -1,0 +1,16 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerFooter) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - saveButton
+           - saveAllButton
+     */
+    saveButton = ''
+    saveAllButton = ''
+
+    renderer = Wysiwyg.CookieHandling:Component.Molecule.ModalFooter {
+        content = Neos.Fusion:Array {
+            0 = ${props.saveButton}
+            1 = ${props.saveAllButton}
+        }
+    }
+}

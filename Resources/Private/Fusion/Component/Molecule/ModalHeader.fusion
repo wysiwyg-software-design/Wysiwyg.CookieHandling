@@ -1,0 +1,13 @@
+prototype(Wysiwyg.CookieHandling:Component.Molecule.ModalHeader) < prototype(Neos.Fusion:Component) {
+    /**
+        PROPS:
+           - title
+     */
+    title = ''
+
+    renderer = afx`
+        <div class="modal-header">
+            <h2 class="modal-title">{props.title}</h2>
+        </div>
+    `
+}

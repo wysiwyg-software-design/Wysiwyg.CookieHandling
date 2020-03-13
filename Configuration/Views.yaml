@@ -1,0 +1,9 @@
+-
+  requestFilter: 'parentRequest.isPackage("Neos.Neos") && isPackage("Wysiwyg.CookieHandling") && isController("CookieLogModule")'
+  options:
+    layoutRootPaths:
+      'Neos.Media': 'resource://Neos.Media/Private/Layouts'
+      'Neos.Neos': 'resource://Neos.Neos/Private/Layouts'
+    partialRootPaths:
+      'Neos.Media': 'resource://Neos.Media/Private/Partials'
+      'Neos.Neos': 'resource://Neos.Neos/Private/Partials'
