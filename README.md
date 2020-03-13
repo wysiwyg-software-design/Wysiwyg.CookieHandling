@@ -1,4 +1,4 @@
-# wysiwyg* - SafeCookies Handling
+# wysiwyg* - Cookie Handling
  
 ![Neos Package](https://img.shields.io/badge/Neos-Package-blue.svg "Neos Package")
 ![Flow Package](https://img.shields.io/badge/Flow-Package-orange.svg "Flow Package")
@@ -15,7 +15,7 @@ This package provides simple and fast to use functions and a cookie layer.
 You can add this package via composer. Check the requirements and run the commands below.
 
 #### Requirements:
-- **PHP:** >=7.0
+- **PHP:** >= 7.0
 - **Neos:** >= 3.3 <= 5.x
 
 #### Composer command:
@@ -32,6 +32,7 @@ composer require wysiwyg/cookie-handling
 Pull requests are welcome. For major changes please open an issue first to discuss what you would like to change.
 
 ## Authors
+
 
 ## License
 
