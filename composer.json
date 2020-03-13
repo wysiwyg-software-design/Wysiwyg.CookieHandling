@@ -1,6 +1,6 @@
 {
     "description": "Cookie handling in neos with user consent",
-    "name": "wysiwyg/cookie-handling",
+    "name": "wy/cookie-handling",
     "type": "neos-plugin",
     "require": {
         "neos/flow": "*",

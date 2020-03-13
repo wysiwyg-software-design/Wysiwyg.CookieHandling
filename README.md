@@ -20,7 +20,7 @@ You can add this package via composer. Check the requirements and run the comman
 
 #### Composer command:
 ```bash
-composer require wysiwyg/cookie-handling
+composer require wy/cookie-handling
 ```
 
 #### Apply migrations:
