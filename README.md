@@ -32,7 +32,10 @@ composer require wysiwyg/cookie-handling
 Pull requests are welcome. For major changes please open an issue first to discuss what you would like to change.
 
 ## Authors
-
+[Sven Wütherich](https://github.com/svwu)  
+[Alexander Schulte](https://github.com/Alex-Schulte)  
+[Eva-Maria Müller](https://github.com/emmue)  
+[Marvin Kuhn](https://github.com/breadlesscode)
 
 ## License
 
