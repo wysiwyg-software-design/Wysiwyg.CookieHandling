@@ -8,7 +8,7 @@ You can easily add this package via composer. Check the requirements and run the
 
 #### Composer command:
 ```bash
-composer require wysiwyg/cookie-handling
+composer require wy/cookie-handling
 ```
 
 #### Apply migrations:
