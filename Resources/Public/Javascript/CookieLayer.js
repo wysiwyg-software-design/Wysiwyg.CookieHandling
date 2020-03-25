@@ -237,7 +237,7 @@ WY.CookieLayer = {
      *
      */
     showCookieLayer: function () {
-        if (this.options.cookieLayerIsDisabled === true) {
+        if (this.options.cookieLayerIsDisabled === true || this.options.cookieLayerIsDisabled === 'true') {
             return;
         }
 

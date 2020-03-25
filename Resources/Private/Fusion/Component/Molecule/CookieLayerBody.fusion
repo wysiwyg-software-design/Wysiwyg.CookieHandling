@@ -3,18 +3,12 @@ prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerBody) < prototype
         PROPS:
         - privacyAnchor
         - legalNotesAnchor
-        - cookieLayerDisabled
-        - consentCookieName
-        - cookieBoxes
+        - introText
     */
 
     privacyAnchor = ''
     legalNotesAnchor = ''
-    cookieLayerDisabled = ''
-    consentCookieName = ''
-    consentCookieLifetime = ''
-    consentCookieAcceptedName = ''
-    consentCookieAcceptedLifetime = ''
+    introText = ''
     cookieBoxes = ''
 
     renderer = Wysiwyg.CookieHandling:Component.Molecule.ModalBody {
@@ -22,11 +16,6 @@ prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerBody) < prototype
             privacyAnchor = ${props.privacyAnchor}
             legalNotesAnchor = ${props.legalNotesAnchor}
             introText = ${props.introText}
-            cookieLayerDisabled = ${props.cookieLayerDisabled}
-            consentCookieName = ${props.consentCookieName}
-            consentCookieLifetime = ${props.consentCookieLifetime}
-            consentCookieAcceptedName = ${props.consentCookieAcceptedName}
-            consentCookieAcceptedLifetime = ${props.consentCookieAcceptedLifetime}
             cookieBoxes = ${props.cookieBoxes}
         }
     }
