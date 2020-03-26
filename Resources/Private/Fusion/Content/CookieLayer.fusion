@@ -14,11 +14,6 @@ prototype(Wysiwyg.CookieHandling:Content.CookieLayer) < prototype(Neos.Fusion:Co
 
     // Layer-Attributes
     modalId = 'modal-cookie'
-    consentCookieName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.cookieName')}
-    consentCookieLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.lifetime')}
-    cookieConsentAcceptedName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.cookieName')}
-    consentCookieAcceptedLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.lifetime')}
-
     // Translations
     translationPackage = 'Wysiwyg.CookieHandling'
     translationLocale = null
@@ -28,7 +23,6 @@ prototype(Wysiwyg.CookieHandling:Content.CookieLayer) < prototype(Neos.Fusion:Co
     legalNodesPageUri = ''
 
     // Display Settings
-    cookieLayerDisabled = 'false'
     showCookieDetails = ${Configuration.setting('Wysiwyg.CookieHandling.showCookieDetails')}
 
     renderer = Wysiwyg.CookieHandling:Component.Organism.Modal {
@@ -50,12 +44,6 @@ prototype(Wysiwyg.CookieHandling:Content.CookieLayer) < prototype(Neos.Fusion:Co
 
             introTextTranslated = ${I18n.translate('cookieConsentText' , null, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
             introText = ${String.replace(this.introTextTranslated, ['{privacyStatementAnchor}', '{legalNotesAnchor}'], [this.privacyAnchor, this.legalNotesAnchor])}
-
-            cookieLayerDisabled = ${props.cookieLayerDisabled}
-            consentCookieName = ${props.consentCookieName}
-            consentCookieLifetime = ${props.consentCookieLifetime}
-            consentCookieAcceptedName = ${props.cookieConsentAcceptedName}
-            consentCookieAcceptedLifetime = ${props.consentCookieAcceptedLifetime}
 
             cookieBoxes = Wysiwyg.CookieHandling:Component.Molecule.CookieBoxes {
                 translationPackage = ${props.translationPackage}

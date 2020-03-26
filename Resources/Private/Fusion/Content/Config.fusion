@@ -1,7 +1,7 @@
 prototype(Wysiwyg.CookieHandling:Config) < prototype(Neos.Fusion:Component) {
 
     cookieGroups = ${Json.stringify(Configuration.setting('Wysiwyg.CookieHandling.cookieGroups'))}
-    cookieLayerDisabled = 'false'
+    cookieLayerDisabled = ${q(documentNode).property('cookieLayerDisabled') ? 'true' : 'false'}
 
     consentCookieName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.cookieName')}
     consentCookieLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.lifetime')}
