@@ -69,11 +69,15 @@ class CookieCleanupComponent implements ComponentInterface
                 continue;
             }
 
-            $cookieFromRequest = new Cookie($cookieName);
-            $this->cookieConsentService->logCookie($cookieFromRequest);
+            try {
+                $cookieFromRequest = new Cookie($cookieName);
+                $this->cookieConsentService->logCookie($cookieFromRequest);
 
-            if (!$this->dryRun) {
-                $this->cookieConsentService->removeCookie($cookieFromRequest);
+                if (!$this->dryRun) {
+                    $this->cookieConsentService->removeCookie($cookieFromRequest);
+                }
+            } catch (\Exception $e) {
+
             }
         }
     }
