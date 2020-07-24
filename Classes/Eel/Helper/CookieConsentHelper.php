@@ -55,6 +55,16 @@ class CookieConsentHelper implements ProtectedContextAwareInterface
     }
 
     /**
+     * Checks if a user has a cookie consent.
+     *
+     * @return bool
+     */
+    public function userHasCookieConsent()
+    {
+        return $this->cookieConsentService->userHasCookieConsent();
+    }
+
+    /**
      * @param string $methodName
      * @return bool
      */

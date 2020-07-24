@@ -21,7 +21,7 @@ prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieBoxes) < prototype(Neo
             cookieGroupCheckbox = Wysiwyg.CookieHandling:Component.Atom.GroupCookieCheckbox {
                 groupKey = ${groupKey}
                 label = ${I18n.translate(group.label, group.label, [], 'CookieLayer', props.translationPackage, null, props.translationLocale)}
-                checked = ${group.defaultValue}
+                checked = ${CookieHandling.userHasCookieConsent() ? CookieHandling.cookieGroupIsAccepted(groupKey) : group.defaultValue}
                 disabled = ${group.readOnly}
             }
 
