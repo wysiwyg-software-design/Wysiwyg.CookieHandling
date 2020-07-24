@@ -197,6 +197,16 @@ class CookieConsentService
     }
 
     /**
+     * Checks if a user has a cookie consent.
+     *
+     * return bool
+     */
+    public function userHasCookieConsent()
+    {
+        return !is_null($this->consentCookie);
+    }
+
+    /**
      * Returns a sha1 hash from the cookie settings.
      *
      * @return string
