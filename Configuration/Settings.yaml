@@ -32,6 +32,10 @@ Neos:
             icon: 'fas fa-cookie-bite'
 
   Flow:
+    mvc:
+      routes:
+        'Wysiwyg.CookieHandling': true
+
     http:
       chain:
         preprocess:

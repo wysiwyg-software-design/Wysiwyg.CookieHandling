@@ -1,0 +1,15 @@
+- name: 'Cookie Service - Update lifetimes for cookies'
+  uriPattern: 'cookie-services/cookies/update-lifetimes'
+  defaults:
+    '@package':    'Wysiwyg.CookieHandling'
+    '@controller': 'CookieUpdate'
+    '@action':     'updateLifetimeForAllOutdatedCookies'
+  httpMethods: ['GET']
+
+- name: 'Cookie Service - Update lifetime for cookie by name'
+  uriPattern: 'cookie-services/cookies/update-lifetime'
+  defaults:
+    '@package':    'Wysiwyg.CookieHandling'
+    '@controller': 'CookieUpdate'
+    '@action':     'updateLifetimeForOutdatedCookie'
+  httpMethods: ['GET']
