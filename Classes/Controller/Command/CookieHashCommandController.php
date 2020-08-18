@@ -18,7 +18,7 @@ class CookieHashCommandController extends CommandController
     /**
      * Prints a hash for a cookie which can be used for updating your configuration
      *
-     * Usage: cookiehandling:forcookie
+     * Usage: cookiehash:forcookie
      *
      * @param string $cookieName CookieName to generate hash
      */
@@ -51,7 +51,7 @@ class CookieHashCommandController extends CommandController
      * - BuildHash
      * - Outdated?
      *
-     * Usage: cookiehandling:cookiehashinformation
+     * Usage: cookiehash:cookiehashinformation
      *
      * @param string $cookieName
      */
@@ -69,7 +69,6 @@ class CookieHashCommandController extends CommandController
         }
         $calculatedHash = $this->cookieUpdateService->buildHashForCookie($cookieName);
         $outdated = $this->cookieUpdateService->cookieIsOutdated($cookieName);
-
 
         $rows = [
             ['CookieName', $cookieName],

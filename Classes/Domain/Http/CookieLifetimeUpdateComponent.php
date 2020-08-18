@@ -29,12 +29,10 @@ class CookieLifetimeUpdateComponent implements ComponentInterface
 
 
     /**
-     * Removes cookies which should not be set.
+     * Reduces lifetime of cookies which should be updated.
      *
-     * This function iterates through all configured cookies and deactivates either
-     * a whole cookie group or a single cookie.
-     * A whole group will be disabled, if no cookie was found for the given group.
-     * A single cookie will be disabled if the cookieName was not found in a cookieGroup.
+     * This function iterates through all cookies in the Request and checks
+     * if they are outdated by checking the cookie's hash settings.
      *
      * @param ComponentContext $componentContext
      */
