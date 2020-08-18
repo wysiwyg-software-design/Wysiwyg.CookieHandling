@@ -54,6 +54,10 @@ Neos:
               position: 'after cleanupCookies'
               component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
 
+            cookieUpdateHandler:
+              position: 'after cookieConsentHandler'
+              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
+
   Fusion:
     defaultContext:
       CookieHandling: Wysiwyg\CookieHandling\Eel\Helper\CookieConsentHelper
