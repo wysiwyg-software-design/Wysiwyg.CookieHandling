@@ -139,12 +139,21 @@ the package offers the possibility to add a setting to the affected cookie and r
     | Hash       | 9f087fb91e6e8a9e92460b48abee09f7fc4ab1a7 |
     +------------+------------------------------------------+
     ```
+   or run <code>./flow cookiehash:cookiehashinformation COOKIE_XYZ</code> to see the current hash and more information
+   ```bash
+    +------------+------------------------------------------+
+    | CookieName | COOKIE_XYZ                               |
+    | Hash       | 123                                      |
+    | BuildHash  | 9f087fb91e6e8a9e92460b48abee09f7fc4ab1a7 |
+    | Outdated?  | YES                                      |
+    +------------+------------------------------------------+
+   ```
 3. Replace the random number in <code>previousCookieSettingHash</code> with the newly generated hash
 
 4. Reduce the lifetime in the settings of the cookie
 
-On the next load of the website the cookie layer will pop up again and, after saving the cookie settings, update the 
-cookies with a lowered lifetime.
+On the next load of the website the cookie layer will pop up again because the configuration has changed and, 
+after saving the cookie settings, the cookies with a lowered lifetime will be updated.
 
 
 ## Pages without cookie layer
