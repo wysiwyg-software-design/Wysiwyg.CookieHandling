@@ -32,6 +32,10 @@ Neos:
             icon: 'fas fa-cookie-bite'
 
   Flow:
+    mvc:
+      routes:
+        'Wysiwyg.CookieHandling': true
+
     http:
       chain:
         preprocess:
@@ -49,6 +53,10 @@ Neos:
             cookieConsentHandler:
               position: 'after cleanupCookies'
               component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
+
+            cookieUpdateHandler:
+              position: 'after cookieConsentHandler'
+              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
 
   Fusion:
     defaultContext:

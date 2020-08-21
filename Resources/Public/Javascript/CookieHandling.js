@@ -326,7 +326,7 @@ WY.CookieHandling = {
         var newCookieValue = JSON.stringify(this.consentCookie);
 
         this._setCookie(this.settings.consentCookieName, newCookieValue, this.getExpireDaysForTimeString(this.settings.consentCookieLifeTime));
-        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.consentCookieAcceptedLifetime));
+        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.cookieConsentAcceptedLifetime));
 
         if (previousCookieValue !== newCookieValue) {
             var event;
@@ -368,6 +368,26 @@ WY.CookieHandling = {
         }
 
         return expireDays;
+    },
+
+    /**
+     * Updates the lifetime for a cookie, if the cookie by the given cookieName is outdated
+     *
+     * @param cookieName
+     */
+    updateCookieLifetimeForCookie: function(cookieName){
+        var updateLifetimeRequest = new XMLHttpRequest();
+        updateLifetimeRequest.open('GET', '/cookie-services/cookies/update-lifetime?cookieName=' + cookieName);
+        updateLifetimeRequest.send(null);
+    },
+
+    /**
+     * Updates the lifetime for all cookies
+     */
+    updateCookieLifetimeForAllCookies: function(){
+        var updateLifetimeRequest = new XMLHttpRequest();
+        updateLifetimeRequest.open('GET', '/cookie-services/cookies/update-lifetimes');
+        updateLifetimeRequest.send(null);
     },
 
     init: function () {

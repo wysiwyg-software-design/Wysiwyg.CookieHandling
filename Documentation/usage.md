@@ -103,7 +103,7 @@ You can easily access the cookie log module via the Neos backend.
 <br />
 <br />
 You can see two cookies in this log.  
-The first one has a 'Configured' info badge. This is a configured cookie to which the user did not consent to.  
+The first one has a 'Configured' info badge. This is a configured cookie to which a user did not consent.  
 The other one has an 'UNKNOWN' warning badge which indicates that there is no configuration for a cookie by this name.
 <br />
 <br />
@@ -119,6 +119,42 @@ This requirement is covered in this package with <code>cookieConsentVersion</cod
 Whenever the cookie settings change a new hash is generated and if the generated hash is different to the saved version in the cookie,
 the cookie layer will pop up again to force the user to give consent to the new cookie usage. 
 The new hash is then saved to the cookie.
+
+## Reducing the lifetime of old cookies
+Sometimes the need arises to reduce the lifetime of a cookie that users already have saved on their device. In this case 
+the package offers the possibility to add a setting to the affected cookie and reduce the lifetime in the following way.
+
+1. Add <code>previousCookieSettingHash</code> with a random number to the cookie's settings like this:
+    ```yaml
+    cookie_a:                   
+      cookieName: 'COOKIE_XYZ'  
+      lifetime: '2 years'
+      previousCookieSettingHash: '123'
+    ```
+2. Run the command <code>./flow cookiehash:forcookie COOKIE_XYZ</code> and get the following output:
+
+    ```bash
+    +------------+------------------------------------------+
+    | CookieName | COOKIE_XYZ                               |
+    | Hash       | 9f087fb91e6e8a9e92460b48abee09f7fc4ab1a7 |
+    +------------+------------------------------------------+
+    ```
+   or run <code>./flow cookiehash:cookiehashinformation COOKIE_XYZ</code> to see the current hash and more information
+   ```bash
+    +------------+------------------------------------------+
+    | CookieName | COOKIE_XYZ                               |
+    | Hash       | 123                                      |
+    | BuildHash  | 9f087fb91e6e8a9e92460b48abee09f7fc4ab1a7 |
+    | Outdated?  | YES                                      |
+    +------------+------------------------------------------+
+   ```
+3. Replace the random number in <code>previousCookieSettingHash</code> with the newly generated hash
+
+4. Reduce the lifetime in the settings of the cookie
+
+On the next load of the website the cookie layer will pop up again because the configuration has changed and, 
+after saving the cookie settings, the cookies with a lowered lifetime will be updated.
+
 
 ## Pages without cookie layer
 According to GDPR some specific pages are not allowed to be blocked by a cookie layer, for example the data privacy page. 
