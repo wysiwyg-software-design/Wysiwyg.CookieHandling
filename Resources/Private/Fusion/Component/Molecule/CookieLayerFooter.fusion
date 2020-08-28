@@ -1,4 +1,16 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerFooter) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Layer Footer'
+        description = 'The Footer of the CookieLayer'
+        props {
+            privacyAnchor = ''
+            legalNotesAnchor = ''
+            introText = ''
+            cookieBoxes = ''
+        }
+    }
+
     /**
         PROPS:
            - saveButton

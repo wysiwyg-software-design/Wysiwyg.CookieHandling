@@ -1,5 +1,13 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieTableBox) < prototype(Neos.Fusion:Component) {
 
+    @styleguide {
+        title = 'Cookie Table Box'
+        description = 'The cookie table which shows all cookies'
+        props {
+            cookieTable = Wysiwyg.CookieHandling:Component.Molecule.CookieTable
+        }
+    }
+
     /**
     * PROPS:
     *   - cookieTable

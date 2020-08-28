@@ -1,4 +1,15 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieForm) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Form'
+        description = 'The CookieForm.'
+        props {
+            introText = 'This form consists is the great function of the CookieLayer'
+            privacyStatementPageUri = 'https://localhost'
+            cookieBoxes = Wysiwyg.CookieHandling:Component.Molecule.CookieBoxes
+        }
+    }
+
     /**
         PROPS:
            - introText

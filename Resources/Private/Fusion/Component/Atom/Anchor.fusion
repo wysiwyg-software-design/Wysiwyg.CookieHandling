@@ -1,4 +1,16 @@
 prototype(Wysiwyg.CookieHandling:Component.Atom.Anchor) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Anchor'
+        description = 'An generic anchor element, which can receive an id, class, href and text.'
+        props {
+            id = 'anchorId'
+            class = 'anchorClass'
+            uri = 'https://example.com'
+            text = 'This is an anchor.'
+        }
+    }
+
     /**
         PROPS:
            - id

@@ -1,11 +1,28 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieTable) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Table'
+        description = 'The cookie table which shows all cookies'
+        props {
+            cookieRows = ''
+            groupKey = ''
+
+            labelToggleShow = 'Show Cookie-Information'
+            labelToggleHide = 'Hide Cookie-Information'
+
+            labelColumnCookie = 'Cookie'
+            labelColumnDescription = 'Description'
+            labelColumnLifetime = 'Lifetime'
+            labelColumnActive = 'Active'
+        }
+    }
+
     /**
         PROPS:
         - cookieRows
         - groupKey
 
      */
-
     cookieRows = ''
     groupKey = ''
 

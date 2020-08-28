@@ -1,11 +1,30 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieTableRow) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Table Row'
+        description = 'A table row which displays all informations of a cookie'
+        props {
+            cookie {
+                cookieName = 'Cookie'
+                lifetime = '2 years'
+            }
+            groupKey = 'technical'
+            cookieCheckbox = Wysiwyg.CookieHandling:Component.Atom.ChildCookieCheckbox {
+                groupKey = 'technical'
+                cookieName = 'Cookie'
+                checked = false
+                disabled = false
+            }
+            cookieDescription = 'A simple cookie'
+        }
+    }
+
     /**
         PROPS:
         - cookie
         - groupKey
         - cookieDescription
      */
-
     cookie = ''
     groupKey = ''
     cookieCheckbox = Wysiwyg.CookieHandling:Component.Atom.ChildCookieCheckbox {

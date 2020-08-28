@@ -1,4 +1,15 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieBoxes) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Boxes'
+        description = 'A collection of Cookie Checkboxes'
+        props {
+            showCookieDetails =  true
+            translationPackage = 'Wysiwyg.CookieHandling'
+            translationLocale = null
+        }
+    }
+
     /**
         PROPS:
          - showCookieDetails

@@ -1,4 +1,17 @@
 prototype(Wysiwyg.CookieHandling:Component.Atom.ChildCookieCheckbox) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Child Cookie Box'
+        description = 'A checkbox which has all attributes to receive all functions of the cookie handling'
+        props {
+            groupKey = 'technical'
+            cookieName = 'technical'
+            defaultValue = '1'
+            checked = false
+            disabled = false
+        }
+    }
+
     /**
         PROPS:
            - groupKey

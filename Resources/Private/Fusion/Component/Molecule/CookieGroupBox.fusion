@@ -1,9 +1,17 @@
 prototype(Wysiwyg.SafeCookies:Component.Molecule.CookieLayerGroupBox) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Group Box'
+        description = 'A cookiegroup box'
+        props {
+            cookieGroups = Wysiwyg.CookieHandling:Component.Molecule.CookieGroup
+        }
+    }
+
     /**
         PROPS:
         - cookieGroups
      */
-
     cookieGroups = ''
 
     renderer = afx`

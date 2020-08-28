@@ -1,8 +1,19 @@
 prototype(Wysiwyg.CookieHandling:Component.Atom.GroupCookieCheckbox) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Group Cookie Box'
+        description = 'A checkbox which has all attributes to receive all functions of the cookie handling'
+        props {
+            group = 'technical'
+            label = 'Technical'
+            checked = false
+            disabled = false
+        }
+    }
+
     /**
         PROPS:
      */
-
     group = ''
     label = ''
     checked = false

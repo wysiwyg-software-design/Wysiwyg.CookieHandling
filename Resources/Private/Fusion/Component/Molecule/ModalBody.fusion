@@ -1,9 +1,17 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.ModalBody) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Modal Body'
+        description = 'A Modal Body, which can display content.'
+        props {
+            content = 'Some Content'
+        }
+    }
+
     /**
         PROPS:
         - content
      */
-
     content = ''
 
     renderer = afx`

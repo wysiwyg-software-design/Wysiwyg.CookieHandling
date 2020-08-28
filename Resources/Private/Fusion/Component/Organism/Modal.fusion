@@ -1,11 +1,22 @@
 prototype(Wysiwyg.CookieHandling:Component.Organism.Modal) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Modal'
+        description = 'A Modal which can display a Modal Header, Modal Body and Modal Footer'
+        props {
+            id = 'modal'
+            header = Wysiwyg.CookieHandling:Component.Molecule.ModalHeader
+            body = Wysiwyg.CookieHandling:Component.Molecule.ModalBody
+            footer =  Wysiwyg.CookieHandling:Component.Molecule.ModalFooter
+        }
+    }
+
     /**
         PROPS:
            - id
            - header
            - body
      */
-
     id = ''
     header = ''
     body = ''

@@ -1,4 +1,15 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieGroup) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Group'
+        description = 'A cookiegroup which can display detailed information of cookies.'
+        props {
+            cookieGroupCheckbox = Wysiwyg.CookieHandling:Component.Atom.GroupCookieCheckbox
+            cookieGroupDescription = 'This cookie Group can display subcookies'
+            cookiesOfGroup = Wysiwyg.CookieHandling:Component.Molecule.CookieTable
+        }
+    }
+
     /**
         PROPS:
          - cookieGroupCheckbox

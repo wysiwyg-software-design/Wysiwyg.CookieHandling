@@ -1,4 +1,15 @@
 prototype(Wysiwyg.CookieHandling:Component.Atom.Button) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Button'
+        description = 'A generic button element, which can receive an id, class and text.'
+        props {
+            id = 'buttonId'
+            class = 'buttonClass'
+            text = 'This is a Button.'
+        }
+    }
+
     /**
         PROPS:
            - id

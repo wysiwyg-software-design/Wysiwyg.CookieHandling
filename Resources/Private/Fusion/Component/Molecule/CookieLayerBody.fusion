@@ -1,11 +1,22 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.CookieLayerBody) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Cookie Layer Body'
+        description = 'The Body of the CookieLayer'
+        props {
+            privacyAnchor = ''
+            legalNotesAnchor = ''
+            introText = ''
+            cookieBoxes = ''
+        }
+    }
+
     /**
         PROPS:
         - privacyAnchor
         - legalNotesAnchor
         - introText
     */
-
     privacyAnchor = ''
     legalNotesAnchor = ''
     introText = ''

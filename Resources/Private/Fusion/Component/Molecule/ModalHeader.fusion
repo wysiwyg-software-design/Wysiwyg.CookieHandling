@@ -1,4 +1,13 @@
 prototype(Wysiwyg.CookieHandling:Component.Molecule.ModalHeader) < prototype(Neos.Fusion:Component) {
+
+    @styleguide {
+        title = 'Modal Header'
+        description = 'A Modal Header, which can display content.'
+        props {
+            content = 'Some Content'
+        }
+    }
+
     /**
         PROPS:
            - title

@@ -5,7 +5,8 @@
     "require": {
         "neos/flow": "*",
         "neos/neos": "*",
-        "neos/fusion-afx": "*"
+        "neos/fusion-afx": "*",
+        "sitegeist/monocle": "^7.1"
     },
     "autoload": {
         "psr-4": {
