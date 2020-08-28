@@ -40,6 +40,11 @@ class CookieLifetimeUpdateComponent implements ComponentInterface
     {
         $request = $componentContext->getHttpRequest();
 
+        if (!method_exists($request, 'getCookies')) {
+            // @todo we should find a possible way to update cookies in PSR-7 aswell.
+            return;
+        }
+
         $requestPath = $request->getUri()->getPath();
 
         // Exclude backend
@@ -57,7 +62,6 @@ class CookieLifetimeUpdateComponent implements ComponentInterface
                 $this->cookieConsentService->tryAddCookie($updatedCookie);
             }
         }
-
     }
 
 }
