@@ -51,11 +51,11 @@ Neos:
               component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
 
             cookieConsentHandler:
-              position: 'after cleanupCookies'
+              position: 'after cookieConsentHandler'
               component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
 
             cookieUpdateHandler:
-              position: 'after cookieConsentHandler'
+              position: 'after cleanupCookies'
               component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
 
   Fusion:
