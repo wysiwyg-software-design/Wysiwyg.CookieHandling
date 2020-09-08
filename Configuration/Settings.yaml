@@ -51,7 +51,7 @@ Neos:
               component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
 
             cookieConsentHandler:
-              position: 'after cookieConsentHandler'
+              position: 'after cookieUpdateHandler'
               component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
 
             cookieUpdateHandler:
