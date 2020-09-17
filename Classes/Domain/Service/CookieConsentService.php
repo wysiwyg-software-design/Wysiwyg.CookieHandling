@@ -197,6 +197,18 @@ class CookieConsentService
     }
 
     /**
+     * Function to check if a cookie is already in the cookieJar, to prevent override.
+     *
+     * @param $cookieName
+     * @return bool
+     */
+    public function cookieIsInJar($cookieName)
+    {
+        return is_array($this->cookieJar) && array_key_exists($cookieName, $this->cookieJar);
+    }
+
+
+    /**
      * Checks if a user has a cookie consent.
      *
      * return bool
