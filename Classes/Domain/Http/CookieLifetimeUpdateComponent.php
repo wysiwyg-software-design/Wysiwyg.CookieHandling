@@ -57,7 +57,7 @@ class CookieLifetimeUpdateComponent implements ComponentInterface
          */
         foreach ($request->getCookies() as $cookie) {
             $cookieIsOutdated = $this->cookieUpdateService->cookieIsOutdated($cookie->getName());
-            if ($cookieIsOutdated) {
+            if (!$this->cookieConsentService->cookieIsInJar($cookie->getName()) && $cookieIsOutdated) {
                 $updatedCookie = $this->cookieUpdateService->updateLifeTimeForCookie($cookie);
                 $this->cookieConsentService->tryAddCookie($updatedCookie);
             }
