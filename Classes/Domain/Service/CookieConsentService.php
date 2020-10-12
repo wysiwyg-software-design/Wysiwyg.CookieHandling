@@ -65,6 +65,18 @@ class CookieConsentService
     }
 
     /**
+     * Directly add a cookie to CookieJar without check.
+     *
+     * @param Cookie $cookie
+     * @return boolean
+     */
+    public function forceAddCookie(Cookie $cookie)
+    {
+        $this->cookieJar[$cookie->getName()] = $cookie;
+        return true;
+    }
+
+    /**
      * Checks if the user did accept the given cookie group.
      *
      * @param string $cookieGroupName
