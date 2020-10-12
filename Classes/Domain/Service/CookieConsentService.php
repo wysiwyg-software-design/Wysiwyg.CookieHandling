@@ -162,7 +162,8 @@ class CookieConsentService
     public function setConsentCookie(Cookie $consentCookie)
     {
         $this->consentCookie = $consentCookie;
-        $this->acceptedCookies = json_decode($consentCookie->getValue(), true);
+        $cookieValue = urldecode($consentCookie->getValue());
+        $this->acceptedCookies = json_decode($cookieValue, true);
     }
 
     /**
