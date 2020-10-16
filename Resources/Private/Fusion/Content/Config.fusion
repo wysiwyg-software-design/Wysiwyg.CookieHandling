@@ -7,7 +7,7 @@ prototype(Wysiwyg.CookieHandling:Config) < prototype(Neos.Fusion:Component) {
     consentCookieLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.lifetime')}
     consentCookieAcceptedName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.cookieName')}
     consentCookieAcceptedLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.lifetime')}
-    consentCookieVersion = ${String.md5(this.cookieGroups)}
+    consentCookieVersion =  ${CookieHandling.getConsentCookieHash()}
 
     renderer = Wysiwyg.CookieHandling:Component.Atom.Script {
         content = Neos.Fusion:Array {
