@@ -46,12 +46,7 @@ class CookieConsentHelper implements ProtectedContextAwareInterface
      */
     public function getConsentCookieHash()
     {
-        $consentCookie = $this->cookieConsentService->getConsentCookie();
-        if ($consentCookie !== null) {
-            return $this->cookieConsentService->getCookieSettingsHash();
-        }
-
-        return null;
+        return $this->cookieConsentService->getCookieSettingsHash();
     }
 
     /**
