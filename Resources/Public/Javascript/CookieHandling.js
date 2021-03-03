@@ -323,7 +323,7 @@ WY.CookieHandling = {
      */
     saveConsentCookie: function () {
         var previousCookieValue = this._getCookie(this.settings.consentCookieName);
-        var newCookieValue = JSON.stringify(this.consentCookie);
+        var newCookieValue = encodeURIComponent(JSON.stringify(this.consentCookie));
 
         this._setCookie(this.settings.consentCookieName, newCookieValue, this.getExpireDaysForTimeString(this.settings.consentCookieLifeTime));
         this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.cookieConsentAcceptedLifetime));
