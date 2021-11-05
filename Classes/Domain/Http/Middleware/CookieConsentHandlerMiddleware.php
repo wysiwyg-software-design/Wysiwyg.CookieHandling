@@ -1,17 +1,16 @@
 <?php
 
-namespace Wysiwyg\CookieHandling\Domain\Http;
+namespace Wysiwyg\CookieHandling\Domain\Http\Middleware;
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Component\ComponentContext as ComponentContext;
-use Neos\Flow\Http\Component\ComponentInterface;
 use Neos\Flow\Http\Cookie;
-use Neos\Flow\Http\Request;
-use Neos\Flow\Http\Response;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Wysiwyg\CookieHandling\Domain\Service\CookieConsentService;
 
-class CookieConsentHandlerComponent implements ComponentInterface
+class CookieConsentHandlerMiddleware implements MiddlewareInterface
 {
     /**
      * @Flow\Inject
@@ -22,21 +21,19 @@ class CookieConsentHandlerComponent implements ComponentInterface
     /**
      * Adds allowed and to be deleted cookies to the response.
      *
-     * @param ComponentContext $componentContext
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      */
-    public function handle(ComponentContext $componentContext)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $request = $componentContext->getHttpRequest();
-        $response = $componentContext->getHttpResponse();
-
         // Exclude backend
         $requestPath = $request->getUri()->getPath();
-        if (strpos($requestPath, '/neos') === 0 || strstr($requestPath, '@user')) {
-            return;
+        if (strpos($requestPath, '/neos') === 0 || strpos($requestPath, '@user') !== false) {
+            return $handler->handle($request);
         }
 
-        $cookieHandledResponse = $this->handleCookiesInResponse($response);
-        $componentContext->replaceHttpResponse($cookieHandledResponse);
+        return $this->handleCookiesInResponse($handler->handle($request));
     }
 
     /**
@@ -47,7 +44,7 @@ class CookieConsentHandlerComponent implements ComponentInterface
      *
      * @return ResponseInterface
      */
-    protected function handleCookiesInResponse($response)
+    protected function handleCookiesInResponse(ResponseInterface $response): ResponseInterface
     {
         $cookieJar = $this->cookieConsentService->getCookieJar();
 

@@ -37,26 +37,26 @@ Neos:
         'Wysiwyg.CookieHandling': true
 
     http:
-      chain:
-        preprocess:
-          chain:
-            cookieConsent:
-              position: 'start'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentComponent
 
-        postprocess:
-          chain:
-            cleanupCookies:
-              position: 'end'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
+      middlewares:
+        cookieConsent:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentMiddleware
+          position: start
 
-            cookieUpdateHandler:
-              position: 'after cleanupCookies'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
+        cookieConsentHandler:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentHandlerMiddleware
+          position: 'after cookieConsent'
 
-            cookieConsentHandler:
-              position: 'after cookieUpdateHandler'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
+# work in progress
+#        postprocess:
+#          chain:
+#            cleanupCookies:
+#              position: 'end'
+#              component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
+#
+#            cookieUpdateHandler:
+#              position: 'after cleanupCookies'
+#              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
 
   Fusion:
     defaultContext:

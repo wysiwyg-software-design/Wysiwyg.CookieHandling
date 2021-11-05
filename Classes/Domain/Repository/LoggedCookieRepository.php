@@ -17,7 +17,7 @@ class LoggedCookieRepository extends \Neos\Flow\Persistence\Repository
      *
      * @throws \Neos\Flow\Persistence\Exception\IllegalObjectTypeException
      */
-    public function update($object)
+    public function update($object): void
     {
         $object->setLastModified(new \DateTime());
         parent::update($object);
