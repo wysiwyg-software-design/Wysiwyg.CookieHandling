@@ -40,9 +40,11 @@ class CookieCleanupMiddleware implements MiddlewareInterface
             return  $handler->handle($request);
         }
 
+        $response = $handler->handle($request);
+
         $this->removeUnacceptedCookiesFromRequest($request);
 
-        return  $handler->handle($request);
+        return $response;
     }
 
     /**

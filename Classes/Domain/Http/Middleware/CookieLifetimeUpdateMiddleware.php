@@ -46,16 +46,19 @@ class CookieLifetimeUpdateMiddleware implements MiddlewareInterface
             return $handler->handle($request);
         }
 
+        $response = $handler->handle($request);
+
         foreach ($request->getCookieParams() as $cookieName => $cookieValue) {
             $cookie = new Cookie($cookieName, $cookieValue);
             $cookieIsOutdated = $this->cookieUpdateService->cookieIsOutdated($cookieName);
+
             if (!$this->cookieConsentService->cookieIsInJar($cookieName) && $cookieIsOutdated) {
                 $updatedCookie = $this->cookieUpdateService->updateLifeTimeForCookie($cookie);
                 $this->cookieConsentService->tryAddCookie($updatedCookie);
             }
         }
 
-        return $handler->handle($request);
+        return $response;
     }
 
 }

@@ -54,12 +54,7 @@ class CookieConsentHandlerMiddleware implements MiddlewareInterface
 
         /** @var Cookie $cookieInJar */
         foreach ($cookieJar as $cookieInJar) {
-            // Handle Non-PSR7 and PSR7 cookie methods
-            if (method_exists($response, 'setCookie')) {
-                $response->setCookie($cookieInJar);
-            } else {
-                $response = $response->withAddedHeader('Set-Cookie', (string)$cookieInJar);
-            }
+            $response = $response->withAddedHeader('Set-Cookie', (string)$cookieInJar);
         }
 
         return $response;

@@ -39,22 +39,25 @@ Neos:
     http:
 
       middlewares:
+        # adds consent cookie to incoming request
         cookieConsent:
           middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentMiddleware
           position: 'start'
 
-        cookieConsentHandler:
-          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentHandlerMiddleware
-          position: 'after cookieConsent'
-
-# position before handler..? (was: post processing)
+        # removes not-accepted cookies from internal cookie jar (after dispatch)
         cleanupCookies:
           middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieCleanupMiddleware
           position: 'end'
 
+        # updates cookie in internal jar with current settings when signature of cookie setting has changed
         cookieUpdateHandler:
           middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieLifetimeUpdateMiddleware
           position: 'after cleanupCookies'
+
+        # updates response with all cookies in jar
+        cookieConsentHandler:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentHandlerMiddleware
+          position: 'after cookieUpdateHandler'
 
   Fusion:
     defaultContext:
