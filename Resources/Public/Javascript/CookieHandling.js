@@ -375,7 +375,7 @@ WY.CookieHandling = {
      *
      * @param cookieName
      */
-    updateCookieLifetimeForCookie: function(cookieName){
+    updateCookieLifetimeForCookie: function (cookieName) {
         var updateLifetimeRequest = new XMLHttpRequest();
         updateLifetimeRequest.open('GET', '/cookie-services/cookies/update-lifetime?cookieName=' + cookieName);
         updateLifetimeRequest.send(null);
@@ -384,14 +384,14 @@ WY.CookieHandling = {
     /**
      * Updates the lifetime for all cookies
      */
-    updateCookieLifetimeForAllCookies: function(){
+    updateCookieLifetimeForAllCookies: function () {
         var updateLifetimeRequest = new XMLHttpRequest();
         updateLifetimeRequest.open('GET', '/cookie-services/cookies/update-lifetimes');
         updateLifetimeRequest.send(null);
     },
 
     init: function () {
-        if(document.cookieHandling === undefined) {
+        if (document.cookieHandling === undefined) {
             return;
         }
 

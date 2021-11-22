@@ -1,9 +1,10 @@
 <?php
 namespace Neos\Flow\Persistence\Doctrine\Migrations;
 
+use Doctrine\DBAL\Exception as DBALException;
 use Doctrine\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
-use Doctrine\DBAL\Migrations\AbortMigrationException;
+use Doctrine\Migrations\Exception\MigrationException;
 
 /**
  * Auto-generated Migration: Please modify to your needs! This block will be used as the migration description if getDescription() is not used.
@@ -22,7 +23,7 @@ class Version20200302141928 extends AbstractMigration
     /**
      * @param Schema $schema
      * @return void
-     * @throws AbortMigrationException
+     * @throws MigrationException|DBALException
      */
     public function up(Schema $schema): void
     {
@@ -36,7 +37,7 @@ class Version20200302141928 extends AbstractMigration
     /**
      * @param Schema $schema
      * @return void
-     * @throws AbortMigrationException
+     * @throws MigrationException|DBALException
      */
     public function down(Schema $schema): void
     {

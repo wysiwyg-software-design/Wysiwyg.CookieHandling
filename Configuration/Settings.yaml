@@ -41,22 +41,20 @@ Neos:
       middlewares:
         cookieConsent:
           middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentMiddleware
-          position: start
+          position: 'start'
 
         cookieConsentHandler:
           middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentHandlerMiddleware
           position: 'after cookieConsent'
 
-# work in progress
-#        postprocess:
-#          chain:
-#            cleanupCookies:
-#              position: 'end'
-#              component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
-#
-#            cookieUpdateHandler:
-#              position: 'after cleanupCookies'
-#              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
+# position before handler..? (was: post processing)
+        cleanupCookies:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieCleanupMiddleware
+          position: 'end'
+
+        cookieUpdateHandler:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieLifetimeUpdateMiddleware
+          position: 'after cleanupCookies'
 
   Fusion:
     defaultContext:

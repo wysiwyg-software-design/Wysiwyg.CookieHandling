@@ -1,16 +1,16 @@
 <?php
 
-namespace Wysiwyg\CookieHandling\Domain\Http;
+namespace Wysiwyg\CookieHandling\Domain\Http\Middleware;
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Component\ComponentContext as ComponentContext;
-use Neos\Flow\Http\Component\ComponentInterface;
 use Neos\Flow\Http\Cookie;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Wysiwyg\CookieHandling\Domain\Service\CookieConsentService;
 
-class CookieCleanupComponent implements ComponentInterface
+class CookieCleanupMiddleware implements MiddlewareInterface
 {
     /**
      * @Flow\Inject
@@ -25,44 +25,35 @@ class CookieCleanupComponent implements ComponentInterface
     protected $dryRun;
 
     /**
-     * @var ServerRequestInterface
-     */
-    protected $request;
-
-    /**
-     * @var ResponseInterface
-     */
-    protected $response;
-
-    /**
-     * Removes cookies which shouldn't be set.
+     * Removes the cookies from the request, which haven't been accepted.
      *
-     * This function iterates through all cookies and removes unaccepted cookies.
-     *
-     * @param ComponentContext $componentContext
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      */
-    public function handle(ComponentContext $componentContext)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $this->request = $componentContext->getHttpRequest();
-        $this->response = $componentContext->getHttpResponse();
-
-        $requestPath = $this->request->getUri()->getPath();
+        $requestPath = $request->getUri()->getPath();
 
         // Exclude backend
         if (strpos($requestPath, '/neos') === 0 || strpos($requestPath, '@user') !== false) {
-            return;
+            return  $handler->handle($request);
         }
 
-        $this->removeUnacceptedCookiesFromRequest();
+        $this->removeUnacceptedCookiesFromRequest($request);
+
+        return  $handler->handle($request);
     }
 
     /**
-     * Removes the cookies from the request, which haven't been accepted if dryRun is false.
+     * This function iterates through all cookies and removes unaccepted cookies if dryRun is false.
      * All cookies are logged.
+     *
+     * @param ServerRequestInterface $request
      */
-    private function removeUnacceptedCookiesFromRequest()
+    private function removeUnacceptedCookiesFromRequest(ServerRequestInterface $request): void
     {
-        $cookiesFromRequest = $this->request->getCookieParams();
+        $cookiesFromRequest = $request->getCookieParams();
 
         foreach (array_keys($cookiesFromRequest) as $cookieName) {
             if ($this->cookieConsentService->cookieIsAccepted($cookieName)) {

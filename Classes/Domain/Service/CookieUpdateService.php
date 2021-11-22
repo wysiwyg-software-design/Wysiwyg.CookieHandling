@@ -4,8 +4,9 @@ namespace Wysiwyg\CookieHandling\Domain\Service;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Http\Cookie;
-use Psr\Http\Message\RequestInterface;
+use Neos\Flow\Mvc\ActionResponse;
 use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Class CookieConsentService
@@ -176,11 +177,11 @@ class CookieUpdateService
      * This function will update all lifetimes for cookies which are found in the request.
      * All updated cookies will be put in the response directly.
      *
-     * @param RequestInterface $request
+     * @param ServerRequestInterface $request
      * @param ResponseInterface $response
      * @return array
      */
-    public function updateLifetimeForAllCookies(RequestInterface $request, ResponseInterface $response)
+    public function updateLifetimeForAllCookies(ServerRequestInterface $request, ActionResponse $response)
     {
         $cookiesWithPreviousVersion = $this->getCookiesWithPreviousVersion();
 
@@ -194,8 +195,11 @@ class CookieUpdateService
                 continue;
             }
 
-            $cookieFromRequest = $request->getCookie($cookieWithPreviousVersion['cookieName']);
-            $updatedCookie = $this->updateLifeTimeForCookie($cookieFromRequest);
+            $cookies = $request->getCookieParams();
+            if (array_key_exists($cookieWithPreviousVersion['cookieName'], $cookies)) {
+                $cookieFromRequest = $cookies[$cookieWithPreviousVersion['cookieName']];
+                $updatedCookie = $this->updateLifeTimeForCookie($cookieFromRequest);
+            }
 
             $response->setCookie($updatedCookie);
         }

@@ -39,10 +39,10 @@ class CookieUpdateController extends ActionController
      */
     public function updateLifetimeForOutdatedCookieAction($cookieName = '')
     {
-        $cookieFromRequest = $this->request->getHttpRequest()->getCookie($cookieName);
+        $cookies = $this->request->getHttpRequest()->getCookieParams();
 
-        if ($cookieFromRequest && $this->cookieUpdateService->cookieIsOutdated($cookieName)) {
-            $updatedCookie = $this->cookieUpdateService->updateLifeTimeForCookie($cookieFromRequest);
+        if (isset($cookies[$cookieName]) && $this->cookieUpdateService->cookieIsOutdated($cookieName)) {
+            $updatedCookie = $this->cookieUpdateService->updateLifeTimeForCookie($cookies[$cookieName]);
             $this->response->setCookie($updatedCookie);
         }
         $this->view->assign('value', 'OK');
