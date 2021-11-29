@@ -1,18 +1,17 @@
 <?php
 
-namespace Wysiwyg\CookieHandling\Domain\Http;
+namespace Wysiwyg\CookieHandling\Domain\Http\Middleware;
 
 use Neos\Flow\Annotations as Flow;
-use Neos\Flow\Http\Component\ComponentContext as ComponentContext;
-use Neos\Flow\Http\Component\ComponentInterface;
+use Neos\Flow\Http\Cookie;
+use Psr\Http\Message\ResponseInterface;
+use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Server\MiddlewareInterface;
+use Psr\Http\Server\RequestHandlerInterface;
 use Wysiwyg\CookieHandling\Domain\Service\CookieConsentService;
 use Wysiwyg\CookieHandling\Domain\Service\CookieUpdateService;
 
-/**
- * Class CookieCleanupComponent
- * @package Wysiwyg\CookieHandling\Domain\Http
- */
-class CookieLifetimeUpdateComponent implements ComponentInterface
+class CookieLifetimeUpdateMiddleware implements MiddlewareInterface
 {
 
     /**
@@ -34,35 +33,32 @@ class CookieLifetimeUpdateComponent implements ComponentInterface
      * This function iterates through all cookies in the Request and checks
      * if they are outdated by checking the cookie's hash settings.
      *
-     * @param ComponentContext $componentContext
+     * @param ServerRequestInterface $request
+     * @param RequestHandlerInterface $handler
+     * @return ResponseInterface
      */
-    public function handle(ComponentContext $componentContext)
+    public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        $request = $componentContext->getHttpRequest();
-
-        if (!method_exists($request, 'getCookies')) {
-            // @todo we should find a possible way to update cookies in PSR-7 aswell.
-            return;
-        }
-
         $requestPath = $request->getUri()->getPath();
 
         // Exclude backend
         if (strpos($requestPath, '/neos') === 0 || strpos($requestPath, '@user') !== false) {
-            return;
+            return $handler->handle($request);
         }
 
-        /**
-         * @var Cookie $cookie
-         */
-        foreach ($request->getCookies() as $cookie) {
-            $cookieIsOutdated = $this->cookieUpdateService->cookieIsOutdated($cookie->getName());
-            if (!$this->cookieConsentService->cookieIsInJar($cookie->getName()) && $cookieIsOutdated) {
+        $response = $handler->handle($request);
+
+        foreach ($request->getCookieParams() as $cookieName => $cookieValue) {
+            $cookie = new Cookie($cookieName, $cookieValue);
+            $cookieIsOutdated = $this->cookieUpdateService->cookieIsOutdated($cookieName);
+
+            if (!$this->cookieConsentService->cookieIsInJar($cookieName) && $cookieIsOutdated) {
                 $updatedCookie = $this->cookieUpdateService->updateLifeTimeForCookie($cookie);
                 $this->cookieConsentService->tryAddCookie($updatedCookie);
             }
         }
 
+        return $response;
     }
 
 }

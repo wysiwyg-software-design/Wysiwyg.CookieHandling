@@ -37,26 +37,27 @@ Neos:
         'Wysiwyg.CookieHandling': true
 
     http:
-      chain:
-        preprocess:
-          chain:
-            cookieConsent:
-              position: 'start'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentComponent
 
-        postprocess:
-          chain:
-            cleanupCookies:
-              position: 'end'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieCleanupComponent
+      middlewares:
+        # adds consent cookie to incoming request
+        cookieConsent:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentMiddleware
+          position: 'start'
 
-            cookieUpdateHandler:
-              position: 'after cleanupCookies'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieLifetimeUpdateComponent
+        # removes not-accepted cookies from internal cookie jar (after dispatch)
+        cleanupCookies:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieCleanupMiddleware
+          position: 'end'
 
-            cookieConsentHandler:
-              position: 'after cookieUpdateHandler'
-              component: Wysiwyg\CookieHandling\Domain\Http\CookieConsentHandlerComponent
+        # updates cookie in internal jar with current settings when signature of cookie setting has changed
+        cookieUpdateHandler:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieLifetimeUpdateMiddleware
+          position: 'after cleanupCookies'
+
+        # updates response with all cookies in jar
+        cookieConsentHandler:
+          middleware: Wysiwyg\CookieHandling\Domain\Http\Middleware\CookieConsentHandlerMiddleware
+          position: 'after cookieUpdateHandler'
 
   Fusion:
     defaultContext:
