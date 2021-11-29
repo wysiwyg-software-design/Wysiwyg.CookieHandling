@@ -15,7 +15,7 @@ This package provides simple and fast to use functions and a cookie layer.
 You can add this package via composer. Check the requirements and run the commands below.
 
 #### Requirements:
-- **PHP:** >= 7.2
+- **PHP:** >= 7.3
 - **Neos:** >= 7.0
 
 #### Composer command:
