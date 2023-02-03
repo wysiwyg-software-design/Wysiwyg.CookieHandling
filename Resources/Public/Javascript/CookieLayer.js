@@ -1,8 +1,8 @@
-var WY = WY || {};
+var WY = WY || {}
 
 /**
- * WY.SafeCookieLayer
- * jQuery SafeCookie Layer integration.
+ * WY.CookieLayer
+ * GDPR Cookie Layer integration
  */
 WY.CookieLayer = {
 
@@ -32,6 +32,7 @@ WY.CookieLayer = {
         cookieFormElement: undefined,
         saveSelectedCookies: '#saveCookies',
         saveAllCookies: '#saveAllCookies',
+        changeCookiesSelector: '#changeCookies',
     },
 
     /**
@@ -39,7 +40,7 @@ WY.CookieLayer = {
      */
     options: {
         cookieLayerIsHideAble: false,
-        cookieLayerIsDisabled: false
+        cookieLayerIsDisabled: false,
     },
 
     /**
@@ -50,52 +51,65 @@ WY.CookieLayer = {
      * After that the cookie layer is able to be closed and will be hidden.
      */
     initCookieForm: function () {
-        this.initCookieGroupCheckboxes();
-        this.initChildCookieCheckboxes();
-        this.initSaveSelectionButton();
-        this.initSaveAllButton();
+        this.initCookieGroupCheckboxes()
+        this.initChildCookieCheckboxes()
+        this.initSaveSelectionButton()
+        this.initSaveAllButton()
     },
 
-    initSaveSelectionButton: function(){
-        var scope = this;
+    initSaveSelectionButton: function () {
+        const scope = this
+        const saveSelectedCookiesButton = document.querySelector(this.elements.saveSelectedCookies)
 
-        $(this.elements.saveSelectedCookies).on('click', function (event) {
-            event.preventDefault();
-            var groupCheckboxes = $(scope.elements.cookieFormElement).find('input.group-check');
+        saveSelectedCookiesButton.addEventListener('click', function (event) {
+            event.preventDefault()
 
-            $(groupCheckboxes).each(function () {
-                var cookieGroupName = $(this).data('group');
-                WY.CookieHandling.addCookieGroup(cookieGroupName);
+            const groupCheckboxes = [].slice.call(document.querySelectorAll(
+                'input.group-check'
+            ))
 
-                if (this.checked) {
-                    WY.CookieHandling.acceptCookieGroup(cookieGroupName);
-                    WY.CookieHandling.acceptAllCookiesFromGroup(cookieGroupName);
+            groupCheckboxes.forEach(function (groupCheckbox) {
+                const cookieGroupName = groupCheckbox.dataset.group
+                WY.CookieHandling.addCookieGroup(cookieGroupName)
+
+                if (groupCheckbox.checked) {
+                    WY.CookieHandling.acceptCookieGroup(cookieGroupName)
+                    WY.CookieHandling.acceptAllCookiesFromGroup(cookieGroupName)
                 } else {
-                    var childCookies = $('.single-check[data-group="' + cookieGroupName + '"]');
+                    const childCookies = [].slice.call(document.querySelectorAll(
+                        '.single-check[data-group="' + cookieGroupName + '"]'
+                    ))
 
-                    $(childCookies).each(function () {
-                        if (this.checked) {
-                            WY.CookieHandling.acceptCookieInGroup($(this).data('cookie-name'), cookieGroupName);
+                    childCookies.forEach(function (childCookie) {
+                        const cookieName = childCookie.dataset['cookie-name']
+
+                        if (childCookie.checked) {
+                            WY.CookieHandling.acceptCookieInGroup(cookieName, cookieGroupName)
                         } else {
-                            WY.CookieHandling.removeCookieInGroup($(this).data('cookie-name'), cookieGroupName);
+                            WY.CookieHandling.removeCookieInGroup(cookieName, cookieGroupName)
                         }
-                    });
+                    })
                 }
-            });
-            scope.submitCookieForm();
-        });
+            })
+
+            scope.submitCookieForm()
+        })
+
     },
 
-    initSaveAllButton: function(){
-        var scope = this;
+    initSaveAllButton: function () {
+        const scope = this
+        const saveAllCookiesButton = document.querySelector(this.elements.saveAllCookies)
 
-        $(this.elements.saveAllCookies).on('click', function (event) {
-            event.preventDefault();
-            for (var groupName in scope.cookieSettings) {
-                WY.CookieHandling.acceptAllCookiesFromGroup(groupName);
+        saveAllCookiesButton.addEventListener('click', function (event) {
+            event.preventDefault()
+
+            for (let groupName in scope.cookieSettings) {
+                WY.CookieHandling.acceptAllCookiesFromGroup(groupName)
             }
-            scope.submitCookieForm();
-        });
+
+            scope.submitCookieForm()
+        })
     },
 
     /**
@@ -105,10 +119,12 @@ WY.CookieLayer = {
      * Reinitialize the form and hides the cookieLayer.
      */
     submitCookieForm: function () {
-        this.options.cookieLayerIsHideAble = true;
-        WY.CookieHandling.saveConsentCookie();
-        WY.CookieHandling.removeUnacceptedCookie();
-        this.hideCookieLayer();
+        this.options.cookieLayerIsHideAble = true
+
+        WY.CookieHandling.saveConsentCookie()
+        WY.CookieHandling.removeUnacceptedCookie()
+
+        this.hideCookieLayer()
     },
 
     /**
@@ -118,12 +134,16 @@ WY.CookieLayer = {
      * the modal open event.
      */
     initCookieChanger: function () {
-        var scope = this;
-        $('#changeCookies').on({
-            click: function () {
-                $(scope.elements.cookieModalElement).modal();
-            }
-        });
+        const scope = this
+        const changeCookiesButton = document.querySelector(
+            this.elements.changeCookiesSelector
+        )
+
+        if (changeCookiesButton) {
+            changeCookiesButton.addEventListener('click', function () {
+                document.querySelector(scope.elements.cookieModalElement).modal()
+            })
+        }
     },
 
     /**
@@ -133,25 +153,32 @@ WY.CookieLayer = {
      * its child cookies to enable or disable a cookie group at the same time.
      */
     initCookieGroupCheckboxes: function () {
-        var scope = this;
-        var cookieGroups = $(this.elements.cookieLayerSelector + ' input.group-check');
+        const scope = this
 
-        $(cookieGroups).each(function () {
-            if (!this.checked) {
-                this.checked = WY.CookieHandling.cookieGroupIsAccepted($(this).data('group'));
+        const cookieGroups = [].slice.call(document.querySelectorAll(
+            this.elements.cookieLayerSelector + ' input.group-check')
+        )
+
+        cookieGroups.forEach(function (cookieGroup) {
+            if (!cookieGroup.checked) {
+                cookieGroup.checked = WY.CookieHandling.cookieGroupIsAccepted(
+                    cookieGroup.dataset.group
+                )
             }
 
-            $(this).on({
-                'click': function () {
-                    var childElements = $(scope.elements.cookieLayerSelector + ' input.single-check[data-group="' + $(this).data('group') + '"]'),
-                        groupChecked = this.checked;
+            cookieGroup.addEventListener('click', function () {
+                const groupChecked = cookieGroup.checked
+                const childElements = [].slice.call(document.querySelectorAll(
+                    scope.elements.cookieLayerSelector +
+                    ' input.single-check[data-group="' +
+                    cookieGroup.dataset.group + '"]'
+                ))
 
-                    $(childElements).each(function () {
-                        this.checked = groupChecked;
-                    })
-                }
+                childElements.forEach(function (childElement) {
+                    childElement.checked = groupChecked
+                })
             })
-        });
+        })
     },
 
     /**
@@ -161,19 +188,25 @@ WY.CookieLayer = {
      * cookie has been activated / checked.
      */
     initChildCookieCheckboxes: function () {
-        var childCookieCheckboxes = $(this.elements.cookieLayerSelector + ' input.single-check');
+        const childCookieCheckboxes = [].slice.call(document.querySelectorAll(
+            this.elements.cookieLayerSelector + ' input.single-check'
+        ))
 
-        $(childCookieCheckboxes).each(function () {
-            if (!this.checked) {
-                this.checked = WY.CookieHandling.cookieIsAccepted($(this).data('cookie-name'));
+        childCookieCheckboxes.forEach(function (childCookieCheckbox) {
+            if (!childCookieCheckbox.checked) {
+                childCookieCheckbox.checked = WY.CookieHandling.cookieIsAccepted(
+                    childCookieCheckbox.dataset['cookie-name']
+                )
             }
 
-            $(this).on({
-                click: function(){
-                    $('.group-check[data-group="'+ $(this).data('group')+'"]')[0].checked = false;
-                }
-            });
-        });
+            childCookieCheckbox.addEventListener('click', function () {
+                const parentCookieCheckbox = document.querySelector(
+                    '.group-check[data-group="' +
+                    childCookieCheckbox.dataset.group + '"]'
+                )
+                parentCookieCheckbox.checked = false
+            })
+        })
     },
 
     /**
@@ -183,48 +216,69 @@ WY.CookieLayer = {
      * the consent cookie has been set.
      */
     initCookieModal: function () {
-        var scope = this;
+        const scope = this
 
         if (WY.CookieHandling._getCookie(this.settings.cookieName)) {
-            this.options.cookieLayerIsHideAble = true;
+            this.options.cookieLayerIsHideAble = true
         }
 
-        $(this.elements.cookieModalSelector).on({
-            'hide.bs.modal': function (event) {
-                if (!scope.options.cookieLayerIsHideAble) {
-                    event.preventDefault();
-                }
+        const cookieModal = document.querySelector(
+            this.elements.cookieModalSelector
+        )
+
+        cookieModal.addEventListener('hide.bs.modal', function (event) {
+            if (!scope.options.cookieLayerIsHideAble) {
+                event.preventDefault()
             }
-        });
+        })
     },
 
     /**
      * Initializes toggle buttons.
      *
-     * These buttons shows and hides detail-cookies.
+     * These buttons show and hide detail-cookies
      */
-    initCookieDetailToggle: function(){
-        $('.detail-anchor-show').off().on({
-            click: function (event) {
-                event.preventDefault();
-                $(this).hide();
-                var detailPanel = $('#' + $(this).data('control'));
-                $(detailPanel).removeClass('collapse');
-                $(detailPanel).addClass('collapsed');
-                $('.detail-anchor-hide[data-control=' + $(this).data('control') + ']').show();
-            }
-        });
+    initCookieDetailToggle: function () {
+        const showDetailsToggles = [].slice.call(document.querySelectorAll('.detail-anchor-show'))
+        const hideDetailsToggles = [].slice.call(document.querySelectorAll('.detail-anchor-hide'))
 
-        $('.detail-anchor-hide').off().on({
-            click: function (event) {
-                event.preventDefault();
-                $(this).hide();
-                var detailPanel = $('#' + $(this).data('control'));
-                $(detailPanel).removeClass('collapsed');
-                $(detailPanel).addClass('collapse');
-                $('.detail-anchor-show[data-control=' + $(this).data('control') + ']').show();
-            }
-        });
+        const showDetailsCallback = function (event) {
+            event.preventDefault()
+            event.target.hidden = true
+
+            const detailPanel = document.getElementById(event.target.dataset.control)
+            detailPanel.classList.remove('collapse')
+            detailPanel.classList.add('collapsed')
+
+            const hideDetails = document.querySelector(
+                '.detail-anchor-hide[data-control=' + event.target.dataset.control + ']'
+            )
+
+            hideDetails.hidden = false
+        }
+
+        const hideDetailsCallback = function (event) {
+            event.preventDefault()
+            event.target.hidden = true
+
+            const detailPanel = document.getElementById(event.target.dataset.control)
+            detailPanel.classList.remove('collapsed')
+            detailPanel.classList.add('collapse')
+
+            const showDetails = document.querySelector(
+                '.detail-anchor-show[data-control=' + event.target.dataset.control + ']'
+            )
+
+            showDetails.hidden = false
+        }
+
+        showDetailsToggles.forEach(function (showDetailsToggle) {
+            showDetailsToggle.addEventListener('click', showDetailsCallback)
+        })
+
+        hideDetailsToggles.forEach(function (hideDetailsToggle) {
+            hideDetailsToggle.addEventListener('click', hideDetailsCallback)
+        })
     },
 
     /**
@@ -238,11 +292,11 @@ WY.CookieLayer = {
      */
     showCookieLayer: function () {
         if (this.options.cookieLayerIsDisabled === true || this.options.cookieLayerIsDisabled === 'true') {
-            return;
+            return
         }
 
         if (WY.CookieHandling._getCookie(this.settings.cookieName) !== document.cookieHandling.consentCookieVersion) {
-            $(this.elements.cookieModalElement).modal();
+            this.openCookieLayer()
         }
     },
 
@@ -250,14 +304,24 @@ WY.CookieLayer = {
      * open the cookie layer without checking for the current state
      */
     openCookieLayer: function () {
-        $(this.elements.cookieModalElement).modal();
+        if (document.getElementById("backdrop")) {
+            document.getElementById("backdrop").style.display = "block"
+        }
+
+        this.elements.cookieModalElement.style.display = "block"
+        this.elements.cookieModalElement.classList.add("show")
     },
 
     /**
      * Helper function to hide the cookieLayer modal.
      */
     hideCookieLayer: function () {
-        $(this.elements.cookieModalElement).modal('hide');
+        if (document.getElementById("backdrop")) {
+            document.getElementById("backdrop").style.display = "none"
+        }
+
+        this.elements.cookieModalElement.style.display = "none"
+        this.elements.cookieModalElement.classList.remove("show")
     },
 
     /**
@@ -265,11 +329,11 @@ WY.CookieLayer = {
      * to make sure that the cookie-layer is displaying a correct state of the consentCookie.
      */
     observeConsentCookieChanges: function () {
-        var scope = this;
+        var scope = this
 
-        document.addEventListener(WY.CookieHandling.settings.cookieConsentChangedEventName, function (evt) {
-            scope.initCookieGroupCheckboxes();
-            scope.initChildCookieCheckboxes();
+        document.addEventListener(WY.CookieHandling.settings.cookieConsentChangedEventName, function () {
+            scope.initCookieGroupCheckboxes()
+            scope.initChildCookieCheckboxes()
         });
     },
 
@@ -278,32 +342,32 @@ WY.CookieLayer = {
      */
     init: function () {
 
-        if(document.cookieHandling === undefined) {
-            return;
+        if (document.cookieHandling === undefined) {
+            return
         }
 
-        this.elements.cookieLayerElement = $(this.elements.cookieLayerSelector);
-        this.elements.cookieModalElement = $(this.elements.cookieModalSelector);
-        this.elements.cookieFormElement = $(this.elements.cookieFormSelector);
+        this.elements.cookieLayerElement = document.querySelector(this.elements.cookieLayerSelector)
+        this.elements.cookieModalElement = document.querySelector(this.elements.cookieModalSelector)
+        this.elements.cookieFormElement = document.querySelector(this.elements.cookieFormSelector)
 
-        if (this.elements.cookieLayerElement.length) {
-            WY.CookieHandling.init();
+        if (this.elements.cookieLayerElement) {
+            WY.CookieHandling.init()
 
-            this.cookieSettings = JSON.parse(document.cookieHandling.cookieSettings);
-            this.options.cookieLayerIsDisabled = document.cookieHandling.cookieLayerDisabled;
-            this.options.isInBackend = false;
+            this.cookieSettings = JSON.parse(document.cookieHandling.cookieSettings)
+            this.options.cookieLayerIsDisabled = document.cookieHandling.cookieLayerDisabled
+            this.options.isInBackend = false
 
-            this.initCookieModal();
-            this.initCookieForm();
-            this.initCookieDetailToggle();
-            this.initCookieChanger();
+            this.initCookieModal()
+            this.initCookieForm()
+            this.initCookieDetailToggle()
+            this.initCookieChanger()
 
-            this.showCookieLayer();
-            this.observeConsentCookieChanges();
+            this.showCookieLayer()
+            this.observeConsentCookieChanges()
         }
     }
-};
+}
 
-$(document).ready(function () {
-    WY.CookieLayer.init();
-});
+window.addEventListener('load', function () {
+    WY.CookieLayer.init()
+})

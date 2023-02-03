@@ -2,6 +2,7 @@
  
 ![Neos Package](https://img.shields.io/badge/Neos-Package-blue.svg "Neos Package")
 ![Flow Package](https://img.shields.io/badge/Flow-Package-orange.svg "Flow Package")
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
  
 Neos component and jQuery to safely deal with cookies and make their handling conform with European law (GDPR).   
 This package provides simple and fast to use functions and a cookie layer. 

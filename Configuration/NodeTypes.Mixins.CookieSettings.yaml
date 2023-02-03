@@ -1,5 +1,4 @@
 'Wysiwyg.CookieHandling:Mixins.CookieSettings':
-  abtract: true
   ui:
     inspector:
       groups:
