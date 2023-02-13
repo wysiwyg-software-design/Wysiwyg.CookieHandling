@@ -30,6 +30,10 @@ WY.CookieLayer = {
         cookieModalElement: undefined,
         cookieFormSelector: '#cookieForm',
         cookieFormElement: undefined,
+        cookieDetailToggle: {
+            show: 'collapsed',
+            hide: 'collapse'
+        },
         saveSelectedCookies: '#saveCookies',
         saveAllCookies: '#saveAllCookies',
         changeCookiesSelector: '#changeCookies',
@@ -241,14 +245,15 @@ WY.CookieLayer = {
     initCookieDetailToggle: function () {
         const showDetailsToggles = [].slice.call(document.querySelectorAll('.detail-anchor-show'))
         const hideDetailsToggles = [].slice.call(document.querySelectorAll('.detail-anchor-hide'))
+        const self = this
 
         const showDetailsCallback = function (event) {
             event.preventDefault()
             event.target.hidden = true
 
             const detailPanel = document.getElementById(event.target.dataset.control)
-            detailPanel.classList.remove('collapse')
-            detailPanel.classList.add('collapsed')
+            detailPanel.classList.remove(self.elements.cookieDetailToggle.hide, 'hidden')
+            detailPanel.classList.add(self.elements.cookieDetailToggle.show)
 
             const hideDetails = document.querySelector(
                 '.detail-anchor-hide[data-control=' + event.target.dataset.control + ']'
@@ -262,8 +267,8 @@ WY.CookieLayer = {
             event.target.hidden = true
 
             const detailPanel = document.getElementById(event.target.dataset.control)
-            detailPanel.classList.remove('collapsed')
-            detailPanel.classList.add('collapse')
+            detailPanel.classList.remove(self.elements.cookieDetailToggle.hide)
+            detailPanel.classList.add(self.elements.cookieDetailToggle.show, 'hidden')
 
             const showDetails = document.querySelector(
                 '.detail-anchor-show[data-control=' + event.target.dataset.control + ']'
