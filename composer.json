@@ -1,7 +1,7 @@
 {
     "description": "GDPR Cookie Layer for Neos CMS",
     "name": "wy/cookie-handling",
-    "type": "neos-wysiwyg",
+    "type": "neos-plugin",
     "license": "MIT",
     "require": {
         "php": "^8.1",
