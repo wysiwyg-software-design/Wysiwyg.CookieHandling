@@ -252,7 +252,7 @@ WY.CookieLayer = {
             event.target.hidden = true
 
             const detailPanel = document.getElementById(event.target.dataset.control)
-            detailPanel.classList.remove(self.elements.cookieDetailToggle.hide, 'hidden')
+            detailPanel.classList.remove(self.elements.cookieDetailToggle.hide)
             detailPanel.classList.add(self.elements.cookieDetailToggle.show)
 
             const hideDetails = document.querySelector(
@@ -267,8 +267,8 @@ WY.CookieLayer = {
             event.target.hidden = true
 
             const detailPanel = document.getElementById(event.target.dataset.control)
-            detailPanel.classList.remove(self.elements.cookieDetailToggle.hide)
-            detailPanel.classList.add(self.elements.cookieDetailToggle.show, 'hidden')
+            detailPanel.classList.remove(self.elements.cookieDetailToggle.show)
+            detailPanel.classList.add(self.elements.cookieDetailToggle.hide)
 
             const showDetails = document.querySelector(
                 '.detail-anchor-show[data-control=' + event.target.dataset.control + ']'
