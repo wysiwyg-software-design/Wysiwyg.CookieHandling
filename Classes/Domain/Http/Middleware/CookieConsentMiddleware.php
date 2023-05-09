@@ -4,6 +4,7 @@ namespace Wysiwyg\CookieHandling\Domain\Http\Middleware;
 
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Http\Cookie;
+use Neos\Utility\ObjectAccess;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\MiddlewareInterface;
@@ -19,10 +20,10 @@ class CookieConsentMiddleware implements MiddlewareInterface
     protected $cookieConsentService;
 
     /**
-     * @Flow\InjectConfiguration(path="consentCookieName")
-     * @var string
+     * @Flow\InjectConfiguration
+     * @var array
      */
-    protected $consentCookieName;
+    protected $configuration;
 
     /**
      * Loads the consent cookie, which has been set via the frontend.
@@ -42,8 +43,10 @@ class CookieConsentMiddleware implements MiddlewareInterface
 
         $cookies = $request->getCookieParams();
 
-        if (array_key_exists($this->consentCookieName, $cookies)) {
-            $consentCookie = new Cookie($this->consentCookieName, $cookies[$this->consentCookieName]);
+        $consentCookieName = $this->configuration['consentCookieName'];
+        if (array_key_exists($consentCookieName, $cookies)) {
+            $consentCookieDomain = ObjectAccess::getPropertyPath($this->configuration, 'cookieGroups.technical.cookies.cookie_consent.domain');
+            $consentCookie = new Cookie($consentCookieName, $cookies[$consentCookieName], 0, null, $consentCookieDomain);
             $this->cookieConsentService->setConsentCookie($consentCookie);
         }
 
