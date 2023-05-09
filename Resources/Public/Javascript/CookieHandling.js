@@ -15,7 +15,8 @@ WY.CookieHandling = {
         cookieLayerSelector: '#cookieLayer',
         cookieSuffix: '_cookies',
         consentCookieName: 'cookieConsent',
-        cookieConsentChangedEventName: 'cookieConsentChanged',
+        consentCookieDomain: null,
+        cookieConsentChangedEventName: 'cookieConsentChanged'
     },
 
     /**
@@ -228,12 +229,13 @@ WY.CookieHandling = {
      *
      * @param cookieName
      * @param cookieValue
-     * @param path
+     * @param path - is ignored!
      * @param expireDays
+     * @param domain
      */
-    tryAddCookie: function (cookieName, cookieValue, path, expireDays) {
+    tryAddCookie: function (cookieName, cookieValue, path, expireDays, domain) {
         if (this.cookieIsAccepted(cookieName)) {
-            this._setCookie(cookieName, cookieValue, expireDays);
+            this._setCookie(cookieName, cookieValue, expireDays, domain);
         }
     },
 
@@ -245,12 +247,17 @@ WY.CookieHandling = {
      * @param cookieName - cookie name
      * @param cookieValue - cookie value
      * @param expireDays - expiry in days
+     * @param domain - domain to use, optional
      */
-    _setCookie: function (cookieName, cookieValue, expireDays) {
+    _setCookie: function (cookieName, cookieValue, expireDays, domain) {
         var date = new Date();
         date.setTime(date.getTime() + (expireDays * 24 * 60 * 60 * 1000));
         var expires = "expires=" + date.toUTCString();
-        document.cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+        var cookie = cookieName + "=" + cookieValue + ";" + expires + ";path=/";
+        if (domain !== null) {
+            cookie += ";domain=" + domain;
+        }
+        document.cookie = cookie;
     },
 
     /**
@@ -325,8 +332,8 @@ WY.CookieHandling = {
         var previousCookieValue = this._getCookie(this.settings.consentCookieName);
         var newCookieValue = encodeURIComponent(JSON.stringify(this.consentCookie));
 
-        this._setCookie(this.settings.consentCookieName, newCookieValue, this.getExpireDaysForTimeString(this.settings.consentCookieLifeTime));
-        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.cookieConsentAcceptedLifetime));
+        this._setCookie(this.settings.consentCookieName, newCookieValue, this.getExpireDaysForTimeString(this.settings.consentCookieLifeTime), this.settings.consentCookieDomain);
+        this._setCookie(this.settings.consentCookieAcceptedName, this.settings.consentCookieVersion, this.getExpireDaysForTimeString(this.settings.cookieConsentAcceptedLifetime), this.settings.consentCookieDomain);
 
         if (previousCookieValue !== newCookieValue) {
             var event;
@@ -399,6 +406,7 @@ WY.CookieHandling = {
         this.consentCookie = JSON.parse(savedCookie);
         this.cookieSettings = JSON.parse(document.cookieHandling.cookieSettings);
         this.settings.consentCookieName = document.cookieHandling.consentCookieName;
+        this.settings.consentCookieDomain = document.cookieHandling.consentCookieDomain;
         this.settings.consentCookieLifeTime = document.cookieHandling.consentCookieLifeTime;
         this.settings.consentCookieAcceptedName = document.cookieHandling.consentCookieAcceptedName;
         this.settings.consentCookieAcceptedLifetime = document.cookieHandling.consentCookieAcceptedLifetime;
