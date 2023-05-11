@@ -4,6 +4,7 @@ prototype(Wysiwyg.CookieHandling:Config) < prototype(Neos.Fusion:Component) {
     cookieLayerDisabled = ${q(documentNode).property('cookieLayerDisabled') ? 'true' : 'false'}
 
     consentCookieName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.cookieName')}
+    consentCookieDomain = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.domain')}
     consentCookieLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_consent.lifetime')}
     consentCookieAcceptedName = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.cookieName')}
     consentCookieAcceptedLifetime = ${Configuration.setting('Wysiwyg.CookieHandling.cookieGroups.technical.cookies.cookie_accepted.lifetime')}
@@ -26,6 +27,11 @@ prototype(Wysiwyg.CookieHandling:Config) < prototype(Neos.Fusion:Component) {
             consentCookieName = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
                 key = 'consentCookieName'
                 value = ${props.consentCookieName}
+            }
+
+            consentCookieDomain = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {
+                key = 'consentCookieDomain'
+                value = ${props.consentCookieDomain}
             }
 
             consentCookieLifetime = Wysiwyg.CookieHandling:Component.Atom.CookieSetting {

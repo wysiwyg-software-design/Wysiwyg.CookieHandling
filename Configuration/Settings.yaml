@@ -12,6 +12,7 @@ Wysiwyg:
           cookie_consent:
             cookieName: 'cookieConsent'
             lifetime: '3 months'
+            domain: null
           cookie_accepted:
             cookieName: 'cookieConsentAccepted'
             lifetime: '3 months'
