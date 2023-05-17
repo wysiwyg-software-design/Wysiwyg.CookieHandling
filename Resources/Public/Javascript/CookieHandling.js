@@ -402,8 +402,6 @@ WY.CookieHandling = {
             return;
         }
 
-        var savedCookie = this._getCookie(this.settings.consentCookieName) || '{}';
-        this.consentCookie = JSON.parse(savedCookie);
         this.cookieSettings = JSON.parse(document.cookieHandling.cookieSettings);
         this.settings.consentCookieName = document.cookieHandling.consentCookieName;
         this.settings.consentCookieDomain = document.cookieHandling.consentCookieDomain;
@@ -411,5 +409,7 @@ WY.CookieHandling = {
         this.settings.consentCookieAcceptedName = document.cookieHandling.consentCookieAcceptedName;
         this.settings.consentCookieAcceptedLifetime = document.cookieHandling.consentCookieAcceptedLifetime;
         this.settings.consentCookieVersion = document.cookieHandling.consentCookieVersion;
+        var savedCookie = this._getCookie(this.settings.consentCookieName) || '{}';
+        this.consentCookie = JSON.parse(savedCookie);
     }
 };

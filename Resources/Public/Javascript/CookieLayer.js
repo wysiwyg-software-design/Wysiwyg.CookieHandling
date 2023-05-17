@@ -288,6 +288,7 @@ WY.CookieLayer = {
 
         if (this.elements.cookieLayerElement.length) {
             WY.CookieHandling.init();
+            this.settings.cookieName = document.cookieHandling.consentCookieAcceptedName;
 
             this.cookieSettings = JSON.parse(document.cookieHandling.cookieSettings);
             this.options.cookieLayerIsDisabled = document.cookieHandling.cookieLayerDisabled;
