@@ -1,3 +1,6 @@
+> [!CAUTION]
+> This repository is deprecated and will be removed in September 2025
+
 # wysiwyg* - Cookie Handling
 
 ![Neos Package](https://img.shields.io/badge/Neos-Package-blue.svg "Neos Package")
